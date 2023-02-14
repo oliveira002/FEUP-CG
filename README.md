@@ -1,10 +1,10 @@
 # CG 2022/2023
 
-## Group T0xG0y
+## Group T01G04
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Diogo Babo         | 202004950 | up202004950@edu.fe.up.pt                |
+| João Oliveira       | 202004407 | up202004407@edu.fe.up.pt                |
 
 ----
 
