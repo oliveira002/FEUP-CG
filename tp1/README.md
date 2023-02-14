@@ -6,4 +6,4 @@
 - In exercise 1 we learned how to draw different geometrical figures.
 - In exercise 2 we didn't have any difficulties.
 
-![Screenshot 1](screenshots/cg-t0xgxx-tp1-n.png)
+![Screenshot 1](screenshots/CG-t01g04-tp1-1.png)
