@@ -46,5 +46,12 @@ export class MyUnitCube extends CGFobject {
 		this.initGLBuffers();
 	}
 
+    display() {
+        this.scene.pushMatrix();
+        this.scene.translate(0,0,-0.5);
+        super.display();
+        this.scene.popMatrix();
+    }
+
 }
 
