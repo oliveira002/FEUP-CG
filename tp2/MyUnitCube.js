@@ -25,9 +25,7 @@ export class MyUnitCube extends CGFobject {
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
-			3,2,0,
-            2,1,0,
-            7,6,4,
+			7,6,4,
             6,5,4,
             3,2,6,
             7,3,6,
@@ -36,7 +34,9 @@ export class MyUnitCube extends CGFobject {
             5,6,2,
             2,1,5,
             0,7,4,
-            0,3,7
+            0,3,7,
+            0,1,2,
+            3,0,2 
 		];
 
 		//The defined indices (and corresponding vertices)
