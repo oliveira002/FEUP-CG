@@ -12,31 +12,91 @@ export class MyUnitCube extends CGFobject {
 	
 	initBuffers() {
 		this.vertices = [
-			-0.5, -0.5, -0.5, //0
-			-0.5, 0.5, -0.5, //1
-			0.5, 0.5, -0.5,	//2
-			0.5, -0.5, -0.5, //3
-            -0.5, -0.5, 0.5, //4
-			-0.5, 0.5, 0.5,	//5
-			0.5, 0.5, 0.5,	//6
-			0.5, -0.5, 0.5 //7
-            		//3
+			0,0,0, //E_BACK 0
+			1,0,0, //B_BACK 1
+			1,1,0, //D_BACK 2
+			0,1,0, //G_BACK 3
+			
+			0,0,0, //E_LEFT 4 
+			0,0,1, //F_LEFT 5
+			0,1,1, //H_LEFT 6
+			0,1,0, //G_LEFT 7
+
+			1,0,0, // B_RIGHT 8
+			1,0,1, // A_RIGHT 9
+			1,1,1, // C_RIGHT 10
+			1,1,0, // D_RIGHT 11
+			
+			1,0,1, // A_DOWN 12
+			1,0,0, // B_DOWN 13
+			0,0,0, // E_DOWN 14
+			0,0,1, // F_DOWN 15
+
+			0,1,1, // H_FRONT 16
+			0,0,1, // F_FRONT 17
+			1,0,1, // A_FRONT 18
+			1,1,1, // C_FRONT 19
+
+			0,1,0, // G_TOP 20
+			1,1,0, // D_TOP 21
+			1,1,1, // C_TOP 22
+			0,1,1 // H_TOP 23
 		];
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
-			7,6,4,
-            6,5,4,
-            3,2,6,
-            7,3,6,
-            5,1,0,
-            0,4,5,
-            5,6,2,
-            2,1,5,
-            0,7,4,
-            0,3,7,
-            0,1,2,
-            3,0,2 
+			0,3,2,
+			2,1,0, // BACK
+			
+			19,16,17,
+			17,18,19, //FRONT
+
+			21,20,23,
+			23,22,21, //TOP
+			
+			5,6,7,
+			5,7,4,
+
+			8,11,10,
+			8,10,9,
+
+			13,12,15, //DOWN
+			13,15,14
+			
+		];
+		
+		
+		this.normals = [
+			0,0,-1, 
+			0,0,-1, 
+			0,0,-1, 
+			0,0,-1,//BACK
+			
+			-1,0,0,
+			-1,0,0,
+			-1,0,0,
+			-1,0,0,//LEFT
+
+			1,0,0,
+			1,0,0,
+			1,0,0,
+			1,0,0, //RIGHT
+
+			0,-1,0,
+			0,-1,0,
+			0,-1,0,
+			0,-1,0, //DOWN
+
+			0,0,1, 
+			0,0,1, 
+			0,0,1, 
+			0,0,1, //FRONT
+			
+			0,1,0,
+			0,1,0,
+			0,1,0,
+			0,1,0, //TOP
+			
 		];
 
 		//The defined indices (and corresponding vertices)
@@ -48,7 +108,6 @@ export class MyUnitCube extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
-        this.scene.translate(0,0,-0.5);
         super.display();
         this.scene.popMatrix();
     }
