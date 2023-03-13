@@ -15,48 +15,63 @@ export class MyPrism extends CGFobject {
 }
 	
 	initBuffers() {
-        this.stackSize = (1/this.stacks);
-        this.firstAngle = 2*Math.PI/this.slices;
-        this.halfAngle = Math.PI/this.slices;
-		this.vertices = [
-		];
-        this.indices = [
-		];
-        this.normals = [
-        ];
-        for (var j = 0; j < this.stacks + 1; j++){
-            for (var i = 0; i < this.slices; i++){
-                this.vertices.push(0, 0, this.stackSize*j);
-                this.vertices.push(Math.cos(i*this.firstAngle), Math.sin(i*this.firstAngle), this.stackSize*j);
-                this.vertices.push(Math.cos((1 + i)*this.firstAngle), Math.sin((1 + i)*this.firstAngle), this.stackSize*j);
-                this.indices.push(i*3 + this.slices * j * 3, i*3+1 + this.slices * j * 3, i*3+2 + this.slices * j * 3 );
-                this.indices.push(i*3+2 + this.slices * j * 3 , i*3+1+ this.slices * j * 3, i*3+ this.slices * j* 3);
-                if(j != 0){
-                    this.indices.push(i*3+2 + this.slices * j * 3, i*3+1 + this.slices * j * 3, i*3+2 + this.slices * (j-1) * 3);
-                    this.indices.push(i*3+2 + this.slices * (j-1) * 3, i*3+1 + this.slices * j * 3, i*3+1 + this.slices * (j-1) * 3); 
-                }
-                
-                this.normals.push(0, 0, 0);
-                this.normals.push(Math.cos((i)*this.firstAngle + this.halfAngle), Math.sin((i)*this.firstAngle + this.halfAngle), 0);
-                this.normals.push(Math.cos((i)*this.firstAngle + this.halfAngle), Math.sin((i)*this.firstAngle + this.halfAngle), 0);
-                
+        this.vertices = [];
+        this.indices = [];
+        this.normals = [];
+
+        var ang = 0;
+        var alphaAng = 2*Math.PI/this.slices;
+
+        for (var i = 0; i < this.stacks; i++) {
+            for(var j = 0; j < this.slices; j++){
+
+                var sa=Math.sin(ang);
+                var saa=Math.sin(ang+alphaAng);
+                var ca=Math.cos(ang);
+                var caa=Math.cos(ang+alphaAng);
+
+                this.vertices.push(ca,-sa,i / this.stacks);
+                this.vertices.push(caa, -saa, i / this.stacks);
+                this.vertices.push(caa, -saa, (i+1)/ this.stacks);
+                this.vertices.push(ca,-sa,(i+1)/this.stacks);
+
+                var normal= [
+                    saa-sa,
+                    
+                    caa-ca,0,
+                ];
+
+                // normalization
+                var nsize=Math.sqrt(
+                    normal[0]*normal[0]+
+                    normal[1]*normal[1]+
+                    normal[2]*normal[2]
+                    );
+                normal[0]/=nsize;
+                normal[1]/=nsize;
+                normal[2]/=nsize;
+
+                this.normals.push(...normal);
+                this.normals.push(...normal);
+                this.normals.push(...normal);
+                this.normals.push(...normal);
+    
+
+                this.indices.push(4*j + (i*this.slices*4), 4* j + (i*this.slices*4)+ 2, 4*j  + (i*this.slices*4) + 1);
+                this.indices.push(4*j + (i*this.slices*4), 4* j + (i*this.slices*4)+ 3, 4*j  + (i*this.slices*4) + 2);
+
+                ang+=alphaAng;
             }
         }
-         
-		//Counter-clockwise reference of vertices
-		
 
-		//The defined indices (and corresponding vertices)
-		//will be read in groups of three to draw triangles
-		this.primitiveType = this.scene.gl.TRIANGLES;
-
-		this.initGLBuffers();
-	}
-    updateBuffers(complexity){
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
+        this.primitiveType = this.scene.gl.TRIANGLES;
+        this.initGLBuffers();
+    }
+    //updateBuffers(complexity){
+        //this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
 
         // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
-    }
+        //this.initBuffers();
+        //this.initNormalVizBuffers();
+    //}
 }
