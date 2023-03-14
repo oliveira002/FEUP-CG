@@ -45,10 +45,10 @@ export class MyTangram extends CGFobject {
         ])
         this.paralell = new MyParallelogram(this.scene);
         this.paralell.updateTexCoords([
-            0.25,0.75,
+            1,1,
             0.5,1,
             0.75,0.75,
-            1,1
+            0.25,0.75
         ])
         this.redTriangle = new MyTriangleSmall(this.scene);
         this.redTriangle.updateTexCoords([
