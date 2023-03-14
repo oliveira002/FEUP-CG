@@ -15,16 +15,30 @@ export class MyParallelogram extends CGFobject {
 			3, 1, 0,	//0
 			1, 1, 0,	//1
 			2, 0, 0,	//2
-            0 ,0 ,0,    //3
-
+            0 ,0 ,0, 	//3
+			3, 1, 0,	//4
+			1, 1, 0,	//5
+			2, 0, 0,	//6
+            0 ,0 ,0     //7
 		];
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0,1,2,
             1,3,2,
-            2,1,0,
-            2,3,1
+			
+            6,5,4,
+            6,7,5
+		];
+		this.normals = [
+			0,0,1,
+			0,0,1,
+			0,0,1,
+			0,0,1,
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+			0,0,-1
 		];
 
 		//The defined indices (and corresponding vertices)
@@ -34,14 +48,10 @@ export class MyParallelogram extends CGFobject {
 		this.initGLBuffers();
 	}
 
-	/**
-	 * @method updateTexCoords
-	 * Updates the list of texture coordinates of the quad
-	 * @param {Array} coords - Array of texture coordinates
-	 */
 	updateTexCoords(coords) {
 		this.texCoords = [...coords];
 		this.updateTexCoordsGLBuffers();
 	}
 }
+	
 
