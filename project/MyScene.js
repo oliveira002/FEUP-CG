@@ -27,7 +27,7 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
-    this.sphere = new MySphere(this, 30, 30);
+    this.sphere = new MySphere(this, 3, 2);
 
     this.objects = [this.sphere];
     this.objectIDs = {'sphere': 0};
@@ -98,7 +98,7 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-    
+
     if (this.displayNormals)
         this.objects[this.selectedObject].enableNormalViz();
     else
