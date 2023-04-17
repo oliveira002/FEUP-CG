@@ -6,25 +6,15 @@ import {CGFappearance} from '../lib/CGF.js';
  * @param scene - Reference to MyScene object
  */
 export class MySphere extends CGFobject {
-	constructor(scene, slices, stacks){
+	constructor(scene, slices, stacks,radius){
         super(scene);
 
         this.slices = slices;
         this.stacks = 2*stacks;
-
+        this.radius = radius;
         this.initBuffers();
-        this.initMaterials();
     }
 
-    initMaterials(){
-        this.mat = new CGFappearance(this.scene);
-        this.mat.setAmbient(0.1, 0.1, 0.1, 1);
-        this.mat.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.mat.setSpecular(0.1, 0.1, 0.1, 1);
-        this.mat.setShininess(10.0);
-        this.mat.loadTexture('images/earth.jpg');
-        this.mat.setTextureWrap('REPEAT', 'REPEAT');
-    }
     initBuffers() {
         this.stackSize = (1/this.stacks);
         var firstAngle = 2*Math.PI/this.slices;
@@ -50,7 +40,7 @@ export class MySphere extends CGFobject {
                 y =  Math.cos(stackAngle) * Math.sin(sliceAngle);             
                 this.vertices.push(x, Math.sin(stackAngle) ,y);
 
-                this.normals.push(x, Math.sin(stackAngle) ,y);
+                this.normals.push(-x, -Math.sin(stackAngle) ,-y);
 
                 s = j / this.slices;
                 t = i / this.stacks;
@@ -68,13 +58,13 @@ export class MySphere extends CGFobject {
 
                 if(i != (this.stackSize-1))
                 {
-                    this.indices.push(nextStack,currentStack + 1,nextStack+1);
-                    //this.indices.push(currentStack + 1,nextStack,nextStack+1);
+                    //this.indices.push(nextStack,currentStack + 1,nextStack+1);
+                    this.indices.push(currentStack + 1,nextStack,nextStack+1);
                 }
                 if(i != 0)
                 {
-                    this.indices.push(nextStack,currentStack,currentStack+1);
-                    //this.indices.push(currentStack,nextStack,currentStack+1);
+                    //this.indices.push(nextStack,currentStack,currentStack+1);
+                    this.indices.push(currentStack,nextStack,currentStack+1);
                 }
                 currentStack++; 
                 nextStack++;
@@ -87,8 +77,7 @@ export class MySphere extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
-        this.mat.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.scene.scale(this.radius,this.radius,this.radius)
         super.display();
         this.scene.popMatrix();
     }

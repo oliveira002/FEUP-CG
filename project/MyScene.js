@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
+import { MyPanorama } from "./MyPanorama.js";
 
 /**
  * MyScene
@@ -24,13 +25,6 @@ export class MyScene extends CGFscene {
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-    //Initialize scene objects
-    this.axis = new CGFaxis(this);
-    this.plane = new MyPlane(this,30);
-    this.sphere = new MySphere(this, 50, 50);
-
-    this.objects = [this.sphere];
-    this.objectIDs = {'sphere': 0};
     
     //Objects connected to MyInterface
     this.selectedObject = 0;
@@ -43,6 +37,16 @@ export class MyScene extends CGFscene {
     //--textures
     this.texture = new CGFtexture(this, "images/terrain.jpg");
     this.earth = new CGFtexture(this, 'images/earth.jpg');
+    this.sky = new CGFtexture(this, 'images/panorama4.jpg');
+
+    
+    //Initialize scene objects
+    this.axis = new CGFaxis(this);
+    this.plane = new MyPlane(this,30);
+    this.panorama = new MyPanorama(this, this.sky);
+
+    this.objects = [this.panorama];
+    this.objectIDs = {'panorama': 0};
 
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
@@ -60,7 +64,7 @@ export class MyScene extends CGFscene {
   }
   initCameras() {
     this.camera = new CGFcamera(
-      1.0,
+      Math.PI / 2,
       0.1,
       1000,
       vec3.fromValues(50, 10, 15),
