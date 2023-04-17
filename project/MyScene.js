@@ -109,13 +109,12 @@ export class MyScene extends CGFscene {
     else
         this.objects[this.selectedObject].disableNormalViz();
     
-    this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
+    //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
     this.objects[this.selectedObject].display();
     this.popMatrix();
 
    
     
-
     // ---- END Primitive drawing section
   }
 }

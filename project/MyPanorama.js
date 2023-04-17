@@ -16,7 +16,7 @@ export class MyPanorama extends CGFobject {
     initBuffers() {
         this.sphere = new MySphere(this.scene,100,100,200)
         this.mat = new CGFappearance(this.scene)
-
+        this.mat.setEmission(1, 1, 1, 1)
     }
 
     display() {
