@@ -94,6 +94,7 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
     this.pushMatrix();
     this.appearance.apply();
+    //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
     this.translate(0,-100,0);
     this.scale(400,400,400);
     this.rotate(-Math.PI/2.0,1,0,0);
@@ -108,6 +109,7 @@ export class MyScene extends CGFscene {
     else
         this.objects[this.selectedObject].disableNormalViz();
     
+    this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
     this.objects[this.selectedObject].display();
     this.popMatrix();
 
