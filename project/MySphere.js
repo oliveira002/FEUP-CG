@@ -10,7 +10,7 @@ export class MySphere extends CGFobject {
         super(scene);
 
         this.slices = slices;
-        this.stacks = stacks;
+        this.stacks = 2*stacks;
 
         this.initBuffers();
         this.initMaterials();
@@ -69,12 +69,12 @@ export class MySphere extends CGFobject {
                 if(i != (this.stackSize-1))
                 {
                     this.indices.push(nextStack,currentStack + 1,nextStack+1);
-                    this.indices.push(currentStack + 1,nextStack,nextStack+1);
+                    //this.indices.push(currentStack + 1,nextStack,nextStack+1);
                 }
                 if(i != 0)
                 {
                     this.indices.push(nextStack,currentStack,currentStack+1);
-                    this.indices.push(currentStack,nextStack,currentStack+1);
+                    //this.indices.push(currentStack,nextStack,currentStack+1);
                 }
                 currentStack++; 
                 nextStack++;
@@ -87,7 +87,6 @@ export class MySphere extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 0, 1, 0);
         this.mat.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         super.display();
