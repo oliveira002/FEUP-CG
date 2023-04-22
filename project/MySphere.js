@@ -6,12 +6,13 @@ import {CGFappearance} from '../lib/CGF.js';
  * @param scene - Reference to MyScene object
  */
 export class MySphere extends CGFobject {
-	constructor(scene, slices, stacks,radius){
+	constructor(scene, slices, stacks,radius,outside){
         super(scene);
 
         this.slices = slices;
         this.stacks = 2*stacks;
         this.radius = radius;
+        this.outside = outside;
         this.initBuffers();
     }
 
@@ -39,8 +40,15 @@ export class MySphere extends CGFobject {
                 x =  Math.cos(stackAngle) * Math.cos(sliceAngle);             
                 y =  Math.cos(stackAngle) * Math.sin(sliceAngle);             
                 this.vertices.push(x, Math.sin(stackAngle) ,y);
+                
+                if(!this.outside) {
+                    this.normals.push(-x, -Math.sin(stackAngle) ,-y);
 
-                this.normals.push(-x, -Math.sin(stackAngle) ,-y);
+                }
+                else {
+                    this.normals.push(x, Math.sin(stackAngle) ,y);
+
+                }
 
                 s = j / this.slices;
                 t = i / this.stacks;
@@ -58,13 +66,22 @@ export class MySphere extends CGFobject {
 
                 if(i != (this.stackSize-1))
                 {
-                    //this.indices.push(nextStack,currentStack + 1,nextStack+1);
-                    this.indices.push(currentStack + 1,nextStack,nextStack+1);
+                    if(!this.outside) {
+                        this.indices.push(currentStack + 1,nextStack,nextStack+1);
+
+                    }
+                    else {
+                        this.indices.push(nextStack,currentStack + 1,nextStack+1);
+                    }
                 }
                 if(i != 0)
                 {
-                    //this.indices.push(nextStack,currentStack,currentStack+1);
-                    this.indices.push(currentStack,nextStack,currentStack+1);
+                    if(!this.outside) {
+                        this.indices.push(currentStack,nextStack,currentStack+1);
+                    }
+                    else {
+                        this.indices.push(nextStack,currentStack,currentStack+1);
+                    }
                 }
                 currentStack++; 
                 nextStack++;

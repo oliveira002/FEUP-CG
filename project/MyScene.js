@@ -2,7 +2,7 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } fr
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
-import { MyBird } from "./MyBirds.js";
+import { MyBird } from "./MyBird.js";
 
 /**
  * MyScene
