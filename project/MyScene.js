@@ -3,7 +3,7 @@ import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
-
+import {MyUnitCube} from "./MyUnitCube.js"
 /**
  * MyScene
  * @constructor
@@ -46,6 +46,7 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this,30);
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this);
+    this.cube = new MyUnitCube(this);
 
     this.objects = [this.bird, this.panorama];
     this.objectIDs = {'bird': 0, 'panorama': 1};
@@ -96,14 +97,14 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
     this.pushMatrix();
     this.appearance.apply();
-    //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
     this.translate(0,-100,0);
     this.scale(400,400,400);
     this.rotate(-Math.PI/2.0,1,0,0);
     this.plane.display();
     this.popMatrix();
-
     this.pushMatrix();
+
+    
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
     
     if (this.displayNormals)
@@ -112,6 +113,12 @@ export class MyScene extends CGFscene {
         this.objects[this.selectedObject].disableNormalViz();
     
     //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
+
+    // scaling for the bird
+    if(this.selectedObject == 0) {
+      this.scale(0.38,0.38,0.38);
+    }
+
     this.objects[this.selectedObject].display();
     this.popMatrix();
 

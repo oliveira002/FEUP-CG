@@ -23,8 +23,9 @@ export class MyBird extends CGFobject {
         this.head = new MyPyramid(this.scene,6,10,2);
         this.wing = new MyWing(this.scene);
         this.back = new MyPyramid(this.scene,6,10,2);
-        this.tail = new MyTriangleBig(this.scene);
+        this.tail = new MyPyramid(this.scene,6,10,2);
         this.eye = new MySphere(this.scene,50,50,0.1,true)
+        
 
     }
 
@@ -35,13 +36,11 @@ export class MyBird extends CGFobject {
 
 
         this.scene.pushMatrix();
-        this.body.display();
         this.scene.translate(1.46,-0.14,1);   
         this.wing.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.body.display();
         this.scene.translate(-1.46,-0.14,1);   
         this.scene.scale(-1,1,1);
         this.wing.display();
@@ -60,21 +59,31 @@ export class MyBird extends CGFobject {
         this.back.display();
         this.scene.popMatrix();
 
-
+        
+        /*
         this.scene.pushMatrix();
         this.scene.translate(0,0,3);
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.scale(0.6,0.6,0.6);   
         this.tail.display();
         this.scene.popMatrix();
+        */
 
         this.scene.pushMatrix();
-        this.scene.translate(0.62,0.1,-1);
+        this.scene.translate(0,0,4.35);
+        this.scene.rotate(-Math.PI / 2, 1, 0, 0);
+        this.tail.display();
+        this.scene.popMatrix();
+
+
+
+        this.scene.pushMatrix();
+        this.scene.translate(0.52,0.3,-1);
         this.eye.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-0.62,0.1,-1);
+        this.scene.translate(-0.52,0.3,-1);
         this.eye.display();
         this.scene.popMatrix();
 
