@@ -26,6 +26,12 @@ export class MyBird extends CGFobject {
         this.tail = new MyPyramid(this.scene,6,10,2);
         this.eye = new MySphere(this.scene,50,50,0.1,true);
         this.mat = new CGFappearance(this.scene)
+
+        this.mat2 = new CGFappearance(this.scene);
+        this.mat2.setDiffuse(0, 0, 0, 255/255);
+        this.mat2.setSpecular(255/255, 255/255, 255/255, 255/255);
+        this.mat2.setAmbient(0, 0, 0, 255/255);
+        this.mat2.apply();
     }
 
 
@@ -97,16 +103,14 @@ export class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(0.52,0.8,-2);
         this.scene.scale(1.3,1.3,1.3);
-        this.mat.setTexture(this.scene.eye);
-        this.mat.apply();
+        this.mat2.apply();
         this.eye.display();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
         this.scene.translate(-0.52,0.8,-2);
         this.scene.scale(1.3,1.3,1.3);
-        this.mat.setTexture(this.scene.eye);
-        this.mat.apply();
+        this.mat2.apply();
         this.eye.display();
         this.scene.popMatrix();
         
