@@ -17,6 +17,7 @@ export class MyPyramid extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
+        this.texCoords = [];
 
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
@@ -56,7 +57,12 @@ export class MyPyramid extends CGFobject {
             this.normals.push(...normal);
             this.normals.push(...normal);
             this.normals.push(...normal);
+            
+            this.texCoords.push(0.5, 0); // Top vertex
+            this.texCoords.push(i / this.slices, 1); // Bottom left vertex
+            this.texCoords.push((i+1) / this.slices, 1); // Bottom right vertex
 
+            
             this.indices.push(3*i, (3*i+1) , (3*i+2) );
 
             ang+=alphaAng;

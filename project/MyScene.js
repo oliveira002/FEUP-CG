@@ -35,10 +35,17 @@ export class MyScene extends CGFscene {
     this.scaleFactor = 1;
 
     this.enableTextures(true);
+
     //--textures
     this.texture = new CGFtexture(this, "images/terrain.jpg");
     this.earth = new CGFtexture(this, 'images/earth.jpg');
     this.sky = new CGFtexture(this, 'images/panorama4.jpg');
+    this.wing = new CGFtexture(this,"images/wing.jpg");
+    this.bodytex = new CGFtexture(this,"images/birdbody.jpg");
+    this.beak = new CGFtexture(this,"images/beak.jpg");
+    this.eye = new CGFtexture(this,"images/eye.jpg");
+    this.head = new CGFtexture(this,"images/head.jpg");
+
 
     
     //Initialize scene objects
