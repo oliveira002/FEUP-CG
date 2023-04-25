@@ -90,8 +90,10 @@ export class MyBird extends CGFobject {
     display() {
         this.update()
         this.scene.pushMatrix();
+        
         this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
         this.scene.rotate(this.ang,0,1,0);
+        this.scene.translate(0,0,-0.98);
         
         //body
         this.scene.pushMatrix();
