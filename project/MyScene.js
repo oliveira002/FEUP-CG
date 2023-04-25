@@ -5,6 +5,7 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import {MyUnitCube} from "./MyUnitCube.js"
 import { MyTerrain } from "./MyTerrain.js";
+import { MyWing } from "./MyWing.js";
 /**
  * MyScene
  * @constructor
@@ -53,7 +54,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
-    this.bird = new MyBird(this,Math.PI / 2, 2, [0,0,0]);
+    this.bird = new MyBird(this,Math.PI, 0.04, [0,0.6,0]);
     this.cube = new MyUnitCube(this);
 
     this.objects = [this.bird, this.panorama];
@@ -63,7 +64,7 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-    //this.setUpdatePeriod(40)
+    this.setUpdatePeriod(40)
   }
 
   update(t) {
@@ -107,12 +108,27 @@ export class MyScene extends CGFscene {
     var keysPressed = false;
 
     if(this.gui.isKeyPressed("KeyW")) {
-      text+= "W";
+      this.bird.accelerate(0.5);
       keysPressed = true;
     }
 
     if(this.gui.isKeyPressed("KeyS")) {
-      text+= "S";
+      this.bird.accelerate(-0.5);
+      keysPressed = true;
+    }
+
+    if(this.gui.isKeyPressed("KeyA")) {
+      this.bird.turn(-Math.PI / 12);
+      keysPressed = true;
+    }
+
+    if(this.gui.isKeyPressed("KeyD")) {
+      this.bird.turn(Math.PI / 12);
+      keysPressed = true;
+    }
+
+    if(this.gui.isKeyPressed("KeyR")) {
+      this.bird.resetPosition();
       keysPressed = true;
     }
 
@@ -148,7 +164,6 @@ export class MyScene extends CGFscene {
         this.objects[this.selectedObject].disableNormalViz();
     
     //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
-
 
 
     this.objects[this.selectedObject].display();
