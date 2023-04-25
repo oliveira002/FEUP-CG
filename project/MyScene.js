@@ -4,6 +4,7 @@ import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import {MyUnitCube} from "./MyUnitCube.js"
+import { MyTerrain } from "./MyTerrain.js";
 /**
  * MyScene
  * @constructor
@@ -41,16 +42,17 @@ export class MyScene extends CGFscene {
     this.earth = new CGFtexture(this, 'images/earth.jpg');
     this.sky = new CGFtexture(this, 'images/panorama4.jpg');
     this.wing = new CGFtexture(this,"images/wing.jpg");
-    this.bodytex = new CGFtexture(this,"images/birdbody.jpg");
     this.beak = new CGFtexture(this,"images/beak.jpg");
     this.eye = new CGFtexture(this,"images/eye.jpg");
     this.head = new CGFtexture(this,"images/head.jpg");
+    this.heightMap = new CGFtexture(this, 'images/heightmap.jpg');
+
 
 
     
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.plane = new MyPlane(this,30);
+    this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this);
     this.cube = new MyUnitCube(this);
@@ -101,19 +103,11 @@ export class MyScene extends CGFscene {
     // Draw axis
     if (this.displayAxis) this.axis.display();
 
-    // ---- BEGIN Primitive drawing section
     this.pushMatrix();
-    this.appearance.apply();
-    this.translate(0,-100,0);
-    this.scale(400,400,400);
-    this.rotate(-Math.PI/2.0,1,0,0);
-    this.plane.display();
-    this.popMatrix();
-    this.pushMatrix();
-
-    
+    this.terrain.display();
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
     
+    // display normals of the objects
     if (this.displayNormals)
         this.objects[this.selectedObject].enableNormalViz();
     else
@@ -127,10 +121,9 @@ export class MyScene extends CGFscene {
     }
 
     this.objects[this.selectedObject].display();
+    
     this.popMatrix();
 
-   
-    
-    // ---- END Primitive drawing section
+
   }
 }

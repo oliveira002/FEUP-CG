@@ -19,7 +19,7 @@ export class MyBird extends CGFobject {
     }
 
     initBuffers() {
-        this.body = new MyCylinder(this.scene,6,10,2);
+    
         this.head = new MySphere(this.scene,50,50,0.1,true);
         this.wing = new MyWing(this.scene);
         this.back = new MyPyramid(this.scene,6,10,2);
@@ -31,11 +31,11 @@ export class MyBird extends CGFobject {
         this.mat2.setDiffuse(0, 0, 0, 255/255);
         this.mat2.setSpecular(255/255, 255/255, 255/255, 255/255);
         this.mat2.setAmbient(0, 0, 0, 255/255);
-        this.mat2.apply();
     }
 
 
     display() {
+        //body
         this.scene.pushMatrix();
         this.mat.setTexture(this.scene.head);
         this.mat.apply();
@@ -45,6 +45,7 @@ export class MyBird extends CGFobject {
         this.scene.popMatrix();
 
 
+        // wings
         this.scene.pushMatrix();
         this.scene.translate(1.36,-0.14,1);
         this.mat.setTexture(this.scene.wing);
@@ -79,17 +80,7 @@ export class MyBird extends CGFobject {
         this.head.display();   
         this.scene.popMatrix();
         
-
-        
-        /*
-        this.scene.pushMatrix();
-        this.scene.translate(0,0,3);
-        this.scene.rotate(Math.PI/2,1,0,0);
-        this.scene.scale(0.6,0.6,0.6);   
-        this.tail.display();
-        this.scene.popMatrix();
-        */
-
+        // tail
         this.scene.pushMatrix();
         this.scene.translate(0,0,3.74);
         this.scene.rotate(-Math.PI / 2, 1, 0, 0);
@@ -128,7 +119,6 @@ export class MyBird extends CGFobject {
     }
 
     enableNormalViz() {
-        this.body.enableNormalViz();
         this.wing.enableNormalViz();
         this.head.enableNormalViz();
         this.back.enableNormalViz();
@@ -136,7 +126,6 @@ export class MyBird extends CGFobject {
         this.eye.enableNormalViz();
     }
     disableNormalViz() {
-        this.body.disableNormalViz();
         this.wing.disableNormalViz();
         this.head.disableNormalViz();
         this.back.disableNormalViz();
