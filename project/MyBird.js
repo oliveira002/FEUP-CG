@@ -21,6 +21,9 @@ export class MyBird extends CGFobject {
         this.velo = velo; // velocity
         this.up = false; // direction
         this.maxY = 0.6;
+        this.initCords = coords;
+        this.initAng = ang;
+
     }
 
     initBuffers() {
@@ -60,9 +63,9 @@ export class MyBird extends CGFobject {
     }
 
     resetPosition() {
-        this.coords = [0,0,-0.94*2];
+        this.coords = this.initCords;
         this.velo = 0;
-        this.ang = Math.PI;
+        this.ang = this.initAng;
     }
 
     turn(v) {
@@ -79,15 +82,15 @@ export class MyBird extends CGFobject {
     update() {
         this.vx = this.velo * Math.sin(this.ang);
         this.vz = this.velo * Math.cos(this.ang);
-        this.coords[0] += this.vx;
-        this.coords[2] += this.vz;
+        this.coords[0] -= this.vx;
+        this.coords[2] -= this.vz;
     }
     
     
     display() {
         this.update()
         this.scene.pushMatrix();
-        this.scene.translate(-this.coords[0],-this.coords[1],-this.coords[2] - 0.94);
+        this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
         this.scene.rotate(this.ang,0,1,0);
         
         //body
