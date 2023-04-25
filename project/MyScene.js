@@ -13,6 +13,8 @@ export class MyScene extends CGFscene {
   constructor() {
     super();
   }
+
+
   init(application) {
     super.init(application);
     
@@ -47,14 +49,11 @@ export class MyScene extends CGFscene {
     this.head = new CGFtexture(this,"images/head.jpg");
     this.heightMap = new CGFtexture(this, 'images/heightmap.jpg');
 
-
-
-    
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
-    this.bird = new MyBird(this);
+    this.bird = new MyBird(this,Math.PI / 2, 2, [0,0,0]);
     this.cube = new MyUnitCube(this);
 
     this.objects = [this.bird, this.panorama];
@@ -64,16 +63,27 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
+    //this.setUpdatePeriod(40)
   }
+
+  update(t) {
+    this.checkKeys();
+  }
+
+
   updateObjectComplexity(){
     this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
   }
+
+
   initLights() {
     this.lights[0].setPosition(15, 0, 5, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update();
   }
+
+
   initCameras() {
     this.camera = new CGFcamera(
       Math.PI / 2,
@@ -83,12 +93,36 @@ export class MyScene extends CGFscene {
       vec3.fromValues(0, 0, 0)
     );
   }
+
+
   setDefaultAppearance() {
     this.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.setDiffuse(0.2, 0.4, 0.8, 1.0);
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
   }
+
+  checkKeys() {
+    var text = "Keys pressed: ";
+    var keysPressed = false;
+
+    if(this.gui.isKeyPressed("KeyW")) {
+      text+= "W";
+      keysPressed = true;
+    }
+
+    if(this.gui.isKeyPressed("KeyS")) {
+      text+= "S";
+      keysPressed = true;
+    }
+
+    if(keysPressed) {
+      console.log(text)
+    }
+  }
+
+
+
   display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -115,10 +149,7 @@ export class MyScene extends CGFscene {
     
     //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
 
-    // scaling for the bird
-    if(this.selectedObject == 0) {
-      this.scale(0.38,0.38,0.38);
-    }
+
 
     this.objects[this.selectedObject].display();
     

@@ -8,9 +8,10 @@ import { MyQuad } from './MyQuad.js';
  * @param scene - Reference to MyScene object
  */
 export class MyWing extends CGFobject {
-    constructor(scene) {    
+    constructor(scene, maxAngle) {    
         super(scene);
         this.initBuffers();
+        this.maxAngle = maxAngle;
     }
 
     initBuffers() {
@@ -18,6 +19,7 @@ export class MyWing extends CGFobject {
     }
 
     display() {
+
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI / 10,0,0,1);
         this.scene.scale(1,1,2);

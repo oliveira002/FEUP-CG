@@ -13,13 +13,16 @@ import { MySphere } from './MySphere.js';
  * @param scene - Reference to MyScene object
  */
 export class MyBird extends CGFobject {
-    constructor(scene) {    
+    constructor(scene,ang,velo,coords) {    
         super(scene);
         this.initBuffers();
+        this.coords = coords; // 0 for X, 1 for Y and 2 for Z
+        this.ang = ang; // orientation angle
+        this.velo = velo; // velocity
     }
 
     initBuffers() {
-    
+
         this.head = new MySphere(this.scene,50,50,0.1,true);
         this.wing = new MyWing(this.scene);
         this.back = new MyPyramid(this.scene,6,10,2);
@@ -32,9 +35,14 @@ export class MyBird extends CGFobject {
         this.mat2.setSpecular(255/255, 255/255, 255/255, 255/255);
         this.mat2.setAmbient(0, 0, 0, 255/255);
     }
-
-
+    
     display() {
+        this.scene.pushMatrix();
+
+        this.scene.scale(0.38,0.38,0.38);
+        this.scene.rotate(-this.ang,0,1,0);
+        this.scene.translate(this.coords[0], this.coords[1],this.coords[2] - 0.94);
+
         //body
         this.scene.pushMatrix();
         this.mat.setTexture(this.scene.head);
@@ -43,7 +51,6 @@ export class MyBird extends CGFobject {
         this.scene.scale(10,10,18);
         this.eye.display();   
         this.scene.popMatrix();
-
 
         // wings
         this.scene.pushMatrix();
@@ -60,16 +67,6 @@ export class MyBird extends CGFobject {
         this.scene.scale(-1,1,1);
         this.wing.display();
         this.scene.popMatrix();
-        
-        /* pyramid head
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI / 2, 1, 0,0);
-        this.scene.scale(1,2.5,1);
-        this.mat.setTexture(this.scene.wing);
-        this.mat.apply();
-        this.head.display();   
-        this.scene.popMatrix();
-        */
 
         // sphere head
         this.scene.pushMatrix();
@@ -88,7 +85,6 @@ export class MyBird extends CGFobject {
         this.mat.apply();
         this.tail.display();
         this.scene.popMatrix();
-
 
         // eyes
         this.scene.pushMatrix();
@@ -115,7 +111,7 @@ export class MyBird extends CGFobject {
         this.back.display();   
         this.scene.popMatrix();
 
-
+        this.scene.popMatrix();
     }
 
     enableNormalViz() {
