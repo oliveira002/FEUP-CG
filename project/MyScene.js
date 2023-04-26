@@ -69,6 +69,7 @@ export class MyScene extends CGFscene {
 
   update(t) {
     this.checkKeys();
+    this.bird.update(t);
   }
 
 

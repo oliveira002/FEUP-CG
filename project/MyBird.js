@@ -82,16 +82,16 @@ export class MyBird extends CGFobject {
     update() {
         this.vx = this.velo * Math.sin(this.ang);
         this.vz = this.velo * Math.cos(this.ang);
-        this.coords[0] -= this.vx;
-        this.coords[2] -= this.vz;
+        this.coords[0] += this.vx;
+        this.coords[2] += this.vz;
     }
     
     
     display() {
-        this.update()
+        //this.update()
         this.scene.pushMatrix();
         
-        this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
+        this.scene.translate(-this.coords[0],-this.coords[1],-this.coords[2]);
         this.scene.rotate(this.ang,0,1,0);
         this.scene.translate(0,0,-0.98);
         
