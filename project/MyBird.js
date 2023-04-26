@@ -79,7 +79,7 @@ export class MyBird extends CGFobject {
         }
     }
 
-    update() {
+    update(t) {
         this.vx = this.velo * Math.sin(this.ang);
         this.vz = this.velo * Math.cos(this.ang);
         this.coords[0] += this.vx;
