@@ -48,11 +48,11 @@ export class MyBird extends CGFobject {
     }
 
     turn(v) {
-        this.ang -= v;
+        this.ang -= v * this.scene.speedFactor;
     }
 
     accelerate(v) {
-        this.velo += v*0.2; 
+        this.velo += v * 0.2 * this.scene.speedFactor; 
         if(this.velo <= 0) {
             this.velo = 0;
         }

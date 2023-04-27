@@ -160,11 +160,10 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     this.terrain.display();
-    this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-    if(this.bird.velo != 0) {
-      this.bird.velo = this.speedFactor;
 
-    }
+    // scale factor for the bird
+    this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+
     
     // display normals of the objects
     if (this.displayNormals)
