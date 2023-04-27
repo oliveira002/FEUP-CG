@@ -6,13 +6,14 @@ import {CGFappearance} from '../lib/CGF.js';
  * @param scene - Reference to MyScene object
  */
 export class MySphere extends CGFobject {
-	constructor(scene, slices, stacks,radius,outside){
+	constructor(scene, slices, stacks,radius,outside,equirectangular){
         super(scene);
 
         this.slices = slices;
         this.stacks = 2*stacks;
         this.radius = radius;
         this.outside = outside;
+        this.equirectangular = equirectangular;
         this.initBuffers();
     }
 
@@ -50,9 +51,15 @@ export class MySphere extends CGFobject {
 
                 }
 
-                s = j / this.slices;
-                t = i / this.stacks;
-                this.texCoords.push(-s,t);
+                s = j / (this.slices-1);
+                t = i / (this.stacks-1);
+                if(this.equirectangular) {
+                    this.texCoords.push(-s,t);
+                }
+                else {
+                    this.texCoords.push(s,t);
+
+                }
             }
         }
         var currentStack, nextStack;

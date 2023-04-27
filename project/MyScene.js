@@ -38,6 +38,7 @@ export class MyScene extends CGFscene {
     this.objectComplexity = 0.5;
     this.displayAxis = true;
     this.scaleFactor = 1;
+    this.speedFactor = 1;
 
     this.enableTextures(true);
 
@@ -160,6 +161,10 @@ export class MyScene extends CGFscene {
     this.pushMatrix();
     this.terrain.display();
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+    if(this.bird.velo != 0) {
+      this.bird.velo = this.speedFactor;
+
+    }
     
     // display normals of the objects
     if (this.displayNormals)
@@ -171,7 +176,7 @@ export class MyScene extends CGFscene {
 
 
     this.objects[this.selectedObject].display();
-
+    this.birdEgg.display();
     
     this.popMatrix();
 

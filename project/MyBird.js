@@ -18,7 +18,7 @@ export class MyBird extends CGFobject {
         this.coords = coords; // 0 for X, 1 for Y and 2 for Z
         this.ang = ang; // orientation angle
         this.velo = velo; // velocity
-        this.maxY = 2;
+        this.amplitude = 2;
         this.initCords = structuredClone(coords);
         this.initAng = ang;
         this.initBuffers();
@@ -26,7 +26,7 @@ export class MyBird extends CGFobject {
     }
 
     initBuffers() {
-        this.head = new MySphere(this.scene,50,50,0.1,true);
+        this.head = new MySphere(this.scene,50,50,0.1,true,false);
         this.wing = new MyWing(this.scene,Math.PI/(5),this.velo);
         this.back = new MyPyramid(this.scene,6,10,2);
         this.tail = new MyPyramid(this.scene,6,10,2);
@@ -59,7 +59,7 @@ export class MyBird extends CGFobject {
     }
 
     update(t) {
-        var offset = (this.maxY) / (60)
+        var offset = (this.amplitude) / (60)
 
         if(t % 1000 < 500) {
             this.coords[1] -= offset
