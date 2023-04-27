@@ -15,36 +15,39 @@ export class MyWing extends CGFobject {
         this.currAngle = 0;
         this.up = true;
         this.speed = speed;
+        this.moving = true;
     }
 
     initBuffers() {
         this.plano = new MyQuad(this.scene);
     }
 
-    animateWing() {
-        if (this.up) {
-            this.currAngle += this.speed;
-            if (this.currAngle >= this.maxAngle) {
-              this.currAngle = this.maxAngle;
-              this.up = false;
-            }
-          } else {
-            this.currAngle -= this.speed;
-            if (this.currAngle <= -this.maxAngle) {
-              this.currAngle = -this.maxAngle;
-              this.up = true;
-            }
-        }
+    updateSpeed(speed) {
+        this.speed = speed;
     }
 
     update(t) {
-        var offset = (this.maxAngle) / (60/this.speed)
-
-        if(t % 1000 < 500) {
+        if(this.speed == 0 && !this.moving) {
+            this.moving = false
+            this.currAngle = 0;
+        }
+        else {
+            this.moving = true;
+        }
+        var offset = (this.maxAngle) / (60/(this.speed == 0 ? 4 : this.speed * 12))
+    
+        if(t % 1000 <= 500) {
             this.currAngle -= offset
         }
         else {
             this.currAngle += offset
+        }
+    
+        if(this.currAngle >= this.maxAngle) {
+            this.currAngle = this.maxAngle
+        }
+        else if(this.currAngle < -this.maxAngle) {
+            this.currAngle = -this.maxAngle
         }
     }
 
