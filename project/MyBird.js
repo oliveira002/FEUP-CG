@@ -18,9 +18,8 @@ export class MyBird extends CGFobject {
         this.coords = coords; // 0 for X, 1 for Y and 2 for Z
         this.ang = ang; // orientation angle
         this.velo = velo; // velocity
-        this.up = false; // direction
         this.maxY = 2;
-        this.initCords = coords;
+        this.initCords = structuredClone(coords);
         this.initAng = ang;
         this.initBuffers();
 
@@ -38,13 +37,14 @@ export class MyBird extends CGFobject {
         this.mat2.setDiffuse(0, 0, 0, 255/255);
         this.mat2.setSpecular(255/255, 255/255, 255/255, 255/255);
         this.mat2.setAmbient(0, 0, 0, 255/255);
+
     }
 
 
     resetPosition() {
-        this.coords = this.initCords;
         this.velo = 0;
         this.ang = this.initAng;
+        this.coords = structuredClone(this.initCords);
     }
 
     turn(v) {
@@ -74,7 +74,6 @@ export class MyBird extends CGFobject {
         this.coords[2] += this.vz;
         this.wing.update(t);
         this.wing.updateSpeed(this.velo);
-
     }
     
     

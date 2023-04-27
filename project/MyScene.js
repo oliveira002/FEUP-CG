@@ -5,6 +5,7 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import {MyUnitCube} from "./MyUnitCube.js"
 import { MyTerrain } from "./MyTerrain.js";
+import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyWing } from "./MyWing.js";
 /**
  * MyScene
@@ -48,6 +49,7 @@ export class MyScene extends CGFscene {
     this.beak = new CGFtexture(this,"images/beak.jpg");
     this.eye = new CGFtexture(this,"images/eye.jpg");
     this.head = new CGFtexture(this,"images/head.jpg");
+    this.egg = new CGFtexture(this,"images/egg.jpg");
     this.heightMap = new CGFtexture(this, 'images/heightmap.jpg');
 
     //Initialize scene objects
@@ -55,6 +57,7 @@ export class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this,Math.PI, 2, [0,0,0]);
+    this.birdEgg = new MyBirdEgg(this,Math.PI, 0,[0,0,0]);
     this.cube = new MyUnitCube(this);
 
     this.objects = [this.bird, this.panorama];
@@ -168,6 +171,7 @@ export class MyScene extends CGFscene {
 
 
     this.objects[this.selectedObject].display();
+
     
     this.popMatrix();
 
