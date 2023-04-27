@@ -20,52 +20,57 @@ export class MyPyramid extends CGFobject {
         this.texCoords = [];
 
         var ang = 0;
-        var alphaAng = 2*Math.PI/this.slices;
+        var alphaAng = 2 * Math.PI / this.slices;
 
-        for(var i = 0; i < this.slices; i++){
-            // All vertices have to be declared for a given face
-            // even if they are shared with others, as the normals 
-            // in each face will be different
+        // vertices and normals for the top of the pyramid
+        this.vertices.push(0, 1, 0);
+        this.normals.push(0, 1, 0);
+        this.texCoords.push(0.5, 0);
 
-            var sa=Math.sin(ang);
-            var saa=Math.sin(ang+alphaAng);
-            var ca=Math.cos(ang);
-            var caa=Math.cos(ang+alphaAng);
+        for (var i = 0; i < this.slices; i++) {
+            var sa = Math.sin(ang);
+            var saa = Math.sin(ang + alphaAng);
+            var ca = Math.cos(ang);
+            var caa = Math.cos(ang + alphaAng);
 
-            this.vertices.push(0,1,0);
+            // vertices and normals for the side faces
             this.vertices.push(ca, 0, -sa);
             this.vertices.push(caa, 0, -saa);
 
-            // triangle normal computed by cross product of two edges
-            var normal= [
-                saa-sa,
-                ca*saa-sa*caa,
-                caa-ca
-            ];
+            var normal = [saa - sa, ca * saa - sa * caa, caa - ca];
 
             // normalization
-            var nsize=Math.sqrt(
-                normal[0]*normal[0]+
-                normal[1]*normal[1]+
-                normal[2]*normal[2]
-                );
-            normal[0]/=nsize;
-            normal[1]/=nsize;
-            normal[2]/=nsize;
+            var nsize = Math.sqrt(
+                normal[0] * normal[0] +
+                normal[1] * normal[1] +
+                normal[2] * normal[2]
+            );
+            normal[0] /= nsize;
+            normal[1] /= nsize;
+            normal[2] /= nsize;
 
             // push normal once for each vertex of this triangle
             this.normals.push(...normal);
             this.normals.push(...normal);
-            this.normals.push(...normal);
-            
-            this.texCoords.push(0.5, 0); // Top vertex
-            this.texCoords.push(i / this.slices, 1); // Bottom left vertex
-            this.texCoords.push((i+1) / this.slices, 1); // Bottom right vertex
 
-            
-            this.indices.push(3*i, (3*i+1) , (3*i+2) );
+            // texture coordinates for the side faces
+            this.texCoords.push(i / this.slices, 1);
+            this.texCoords.push((i + 1) / this.slices, 1);
 
-            ang+=alphaAng;
+            // indices for the side faces
+            this.indices.push(2 * i + 1, 2 * i + 2, 0);
+
+            ang += alphaAng;
+        }
+
+        // vertices, normals, and texture coordinates for the bottom of the pyramid
+        this.vertices.push(0, 0, 0);
+        this.normals.push(0, -1, 0);
+        this.texCoords.push(0.5, 0.5);
+
+        // indices for the bottom faces
+        for (var i = 0; i < this.slices; i++) {
+            this.indices.push(2 * i + 2, 2 * i + 1, 2 * this.slices + 1);
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
@@ -83,5 +88,3 @@ export class MyPyramid extends CGFobject {
         this.initNormalVizBuffers();
     }
 }
-
-

@@ -80,7 +80,7 @@ export class MyBird extends CGFobject {
     display() {
         //this.update()
         this.scene.pushMatrix();
-        
+        this.scene.scale(0.38,0.38,0.38);
         this.scene.translate(-this.coords[0],-this.coords[1],-this.coords[2]);
         this.scene.rotate(this.ang,0,1,0);
         this.scene.translate(0,0,-0.98);
@@ -158,14 +158,14 @@ export class MyBird extends CGFobject {
 
     enableNormalViz() {
         this.wing.enableNormalViz();
-        this.head.enableNormalViz();
+        //this.head.enableNormalViz();
         this.back.enableNormalViz();
         this.tail.enableNormalViz();
-        this.eye.enableNormalViz();
+        //this.eye.enableNormalViz();
     }
     disableNormalViz() {
         this.wing.disableNormalViz();
-        this.head.disableNormalViz();
+        //this.head.disableNormalViz();
         this.back.disableNormalViz();
         this.tail.disableNormalViz();
         this.eye.disableNormalViz();

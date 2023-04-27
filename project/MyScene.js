@@ -57,7 +57,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
-    this.bird = new MyBird(this,Math.PI, 2, [0,0,0]);
+    this.bird = new MyBird(this,Math.PI, 1, [0,0,0]);
     this.birdEgg = new MyBirdEgg(this,Math.PI, 0,[0,0,0]);
     this.cube = new MyUnitCube(this);
 

@@ -65,13 +65,13 @@ export class MyWing extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI / 6,0,0,1);
-        this.scene.translate(0.78,-0.38,0);
+        this.scene.translate(0.78,-0.37,0);
         this.scene.scale(1,1,2);
         this.plano.display();   
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(1.78,0.32,0);
+        this.scene.translate(1.78,0.31,0);
         this.scene.scale(1,1,2);
         this.plano.display();   
         this.scene.popMatrix();
