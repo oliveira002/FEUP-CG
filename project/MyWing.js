@@ -13,7 +13,7 @@ export class MyWing extends CGFobject {
         this.initBuffers();
         this.maxAngle = maxAngle;
         this.currAngle = 0;
-        this.up = false;
+        this.up = true;
         this.speed = speed;
     }
 
@@ -37,8 +37,18 @@ export class MyWing extends CGFobject {
         }
     }
 
+    update(t) {
+        var offset = (this.maxAngle) / (60/this.speed)
+
+        if(t % 1000 < 500) {
+            this.currAngle -= offset
+        }
+        else {
+            this.currAngle += offset
+        }
+    }
+
     display() {
-        this.animateWing();
         this.scene.pushMatrix();
         this.scene.translate(-0.5,0,0);
         this.scene.rotate(this.currAngle,0,0,1);

@@ -64,7 +64,7 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.setUpdatePeriod(40)
+    this.setUpdatePeriod(1000/60)
   }
 
   update(t) {

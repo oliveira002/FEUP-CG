@@ -20,7 +20,7 @@ export class MyBird extends CGFobject {
         this.ang = ang; // orientation angle
         this.velo = velo; // velocity
         this.up = false; // direction
-        this.maxY = 0.6;
+        this.maxY = 1.2;
         this.initCords = coords;
         this.initAng = ang;
 
@@ -28,7 +28,7 @@ export class MyBird extends CGFobject {
 
     initBuffers() {
         this.head = new MySphere(this.scene,50,50,0.1,true);
-        this.wing = new MyWing(this.scene,Math.PI/7,0.04);
+        this.wing = new MyWing(this.scene,Math.PI/7,4);
         this.back = new MyPyramid(this.scene,6,10,2);
         this.tail = new MyPyramid(this.scene,6,10,2);
         this.eye = new MySphere(this.scene,50,50,0.1,true);
@@ -40,27 +40,6 @@ export class MyBird extends CGFobject {
         this.mat2.setAmbient(0, 0, 0, 255/255);
     }
 
-    verticalMovement() {
-        if(this.up) {
-            this.coords[1] += this.velo;
-            if(this.coords[1] >= this.maxY) {
-                this.coords[1] = this.maxY;
-                this.up = false;
-            }
-        }
-        else {
-            this.coords[1] -= this.velo;
-            if(this.coords[1] <= 0) {
-                this.coords[1] = 0;
-                this.up = true;
-            }
-        }
-    }
-
-    forwardMovement() {
-        this.coords[0] += this.vx;
-        this.coords[2] += this.vz;
-    }
 
     resetPosition() {
         this.coords = this.initCords;
@@ -80,10 +59,21 @@ export class MyBird extends CGFobject {
     }
 
     update(t) {
+        var offset = (this.maxY) / (60)
+
+        if(t % 1000 < 500) {
+            this.coords[1] -= offset
+        }
+        else {
+            this.coords[1] += offset
+        }
+
         this.vx = this.velo * Math.sin(this.ang);
         this.vz = this.velo * Math.cos(this.ang);
         this.coords[0] += this.vx;
         this.coords[2] += this.vz;
+        this.wing.update(t);
+
     }
     
     
