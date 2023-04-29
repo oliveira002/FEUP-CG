@@ -1,4 +1,4 @@
-import {CGFappearance, CGFobject, CGFshader} from '../lib/CGF.js';
+import {CGFappearance, CGFobject, CGFshader, CGFtexture} from '../lib/CGF.js';
 import { MyPlane } from './MyPlane.js';
 
 /**
@@ -13,9 +13,16 @@ export class MyTerrain extends CGFobject {
     }
 
     initBuffers() {
-        this.plane = new MyPlane(this.scene,30);
+        this.plane = new MyPlane(this.scene,20);
         this.planeMat = new CGFappearance(this.scene);
         this.testShader = new CGFshader(this.scene.gl,"shaders/terrain.vert", "shaders/terrain.frag")
+
+        this.texture1=new CGFtexture(this.scene,'images/terrain.jpg');
+        this.map=new CGFtexture(this.scene,'images/heightmap.jpg');
+        this.altimetry=new CGFtexture(this.scene,'images/altimetry.png');
+
+        this.testShader.setUniformsValues({ uSampler1: 1 });
+        this.testShader.setUniformsValues({ uSampler2: 2 });
     }
 
 
@@ -24,6 +31,9 @@ export class MyTerrain extends CGFobject {
         this.scene.translate(0,-100,0);
         this.scene.scale(400,400,400);
         this.scene.rotate(-Math.PI/2.0,1,0,0);
+        this.map.bind(1);
+        this.altimetry.bind(2);
+
         this.planeMat.setTexture(this.scene.texture);
 
         // shaders

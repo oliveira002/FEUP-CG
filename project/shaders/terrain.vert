@@ -6,18 +6,18 @@ uniform mat4 uMVMatrix;
 uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
-uniform sampler2D uSampler2;
-
 varying vec2 vTextureCoord;
-uniform float timeFactor;
+varying vec2 yTextureCoord;
+
+uniform sampler2D uSampler1;
+uniform sampler2D uSampler;
 
 void main() {
     vTextureCoord = aTextureCoord;
+    vec3 offset = vec3(0.0, 0.0, texture2D(uSampler1, vTextureCoord).r);
 
-    vec4 filter = texture2D(uSampler2, aTextureCoord);
-    vec3 offset=vec3(0.0,0.0,0.0);
-    offset=aVertexNormal*0.02;
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.xy,aVertexPosition.z + filter.g * 0.1, 1.0) + vec4(offset,0.0);
 
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition.xy,aVertexPosition.z + offset.z*0.4, 1.0);
+    yTextureCoord.y = 1.0 - (offset.z);
+    yTextureCoord.x = 0.0;
 }
-
