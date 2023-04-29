@@ -6,25 +6,17 @@ import {CGFappearance} from '../lib/CGF.js';
  * @param scene - Reference to MyScene object
  */
 export class MySphere extends CGFobject {
-	constructor(scene, slices, stacks){
+	constructor(scene, slices, stacks,radius,outside,equirectangular){
         super(scene);
 
         this.slices = slices;
-        this.stacks = stacks * 2;
-
+        this.stacks = 2*stacks;
+        this.radius = radius;
+        this.outside = outside;
+        this.equirectangular = equirectangular;
         this.initBuffers();
-        this.initMaterials();
     }
 
-    initMaterials(){
-        this.mat = new CGFappearance(this.scene);
-        this.mat.setAmbient(0.1, 0.1, 0.1, 1);
-        this.mat.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.mat.setSpecular(0.1, 0.1, 0.1, 1);
-        this.mat.setShininess(10.0);
-        this.mat.loadTexture('images/earth.jpg');
-        this.mat.setTextureWrap('REPEAT', 'REPEAT');
-    }
     initBuffers() {
         this.stackSize = (1/this.stacks);
         var firstAngle = 2*Math.PI/this.slices;
@@ -48,6 +40,7 @@ export class MySphere extends CGFobject {
             {
                 sliceAngle = j * firstAngle; 
 
+<<<<<<< HEAD
                 if(i == 0 && oneTime == 0){
                     this.vertices.push(0, Math.sin(stackAngle) ,0);
                     oneTime = 1;
@@ -103,6 +96,62 @@ export class MySphere extends CGFobject {
                 this.indices.push(index1, index2, index3);
                 this.indices.push(index2, index4, index3);
               }
+=======
+                x =  Math.cos(stackAngle) * Math.cos(sliceAngle);             
+                y =  Math.cos(stackAngle) * Math.sin(sliceAngle);             
+                this.vertices.push(x, Math.sin(stackAngle) ,y);
+                
+                if(!this.outside) {
+                    this.normals.push(-x, -Math.sin(stackAngle) ,-y);
+
+                }
+                else {
+                    this.normals.push(x, Math.sin(stackAngle) ,y);
+
+                }
+
+                s = j / (this.slices-1);
+                t = i / (this.stacks-1);
+                if(this.equirectangular) {
+                    this.texCoords.push(-s,t);
+                }
+                else {
+                    this.texCoords.push(s,t);
+
+                }
+            }
+        }
+        var currentStack, nextStack;
+        for(var i = 0; i < this.stacks; i++)
+        {
+            currentStack = i * (this.slices + 1);
+            nextStack = currentStack + this.slices + 1;  
+
+            for(var j = 0; j < this.slices; j++)
+            {
+
+                if(i != (this.stackSize-1))
+                {
+                    if(!this.outside) {
+                        this.indices.push(currentStack + 1,nextStack,nextStack+1);
+
+                    }
+                    else {
+                        this.indices.push(nextStack,currentStack + 1,nextStack+1);
+                    }
+                }
+                if(i != 0)
+                {
+                    if(!this.outside) {
+                        this.indices.push(currentStack,nextStack,currentStack+1);
+                    }
+                    else {
+                        this.indices.push(nextStack,currentStack,currentStack+1);
+                    }
+                }
+                currentStack++; 
+                nextStack++;
+>>>>>>> 6a67ad978aaedd8d8f1af6a410778b46f65c1206
             }
           }
         this.primitiveType = this.scene.gl.TRIANGLES;
@@ -112,9 +161,7 @@ export class MySphere extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 0, 1, 0);
-        this.mat.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.scene.scale(this.radius,this.radius,this.radius)
         super.display();
         this.scene.popMatrix();
     }
