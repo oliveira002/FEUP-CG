@@ -164,11 +164,8 @@ export class MyScene extends CGFscene {
     // scale factor for the bird
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
-<<<<<<< HEAD
-=======
     
     // display normals of the objects
->>>>>>> 6a67ad978aaedd8d8f1af6a410778b46f65c1206
     if (this.displayNormals)
         this.objects[this.selectedObject].enableNormalViz();
     else
