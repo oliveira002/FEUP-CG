@@ -48,6 +48,7 @@ export class MyBird extends CGFobject {
         this.velo = 0;
         this.ang = this.initAng;
         this.coords = structuredClone(this.initCords);
+        this.wing.currAngle = 0;
     }
 
     turn(v) {
