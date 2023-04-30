@@ -3,10 +3,10 @@ import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
-import {MyUnitCube} from "./MyUnitCube.js"
 import { MyTerrain } from "./MyTerrain.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyWing } from "./MyWing.js";
+import { MyBirdPaw } from "./MyBirdPaw.js";
 /**
  * MyScene
  * @constructor
@@ -59,7 +59,7 @@ export class MyScene extends CGFscene {
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this,Math.PI, 0, [0,0,0]);
     this.birdEgg = new MyBirdEgg(this,Math.PI, 0,[0,0,0]);
-    this.cube = new MyUnitCube(this);
+    this.paw = new MyBirdPaw(this);
 
     this.objects = [this.bird, this.panorama];
     this.objectIDs = {'bird': 0, 'panorama': 1};
@@ -175,7 +175,7 @@ export class MyScene extends CGFscene {
 
 
     this.objects[this.selectedObject].display();
-    this.birdEgg.display();
+    //this.birdEgg.display();
     
     this.popMatrix();
 

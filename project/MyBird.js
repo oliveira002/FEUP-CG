@@ -6,6 +6,7 @@ import {MyWing} from './MyWing.js';
 import {MyPrism} from './MyPrism.js';
 import { MyTriangleBig } from './MyTriangleBig.js';
 import { MySphere } from './MySphere.js';
+import { MyBirdPaw } from './MyBirdPaw.js';
 
 /**
  * MyTangram
@@ -31,7 +32,9 @@ export class MyBird extends CGFobject {
         this.back = new MyPyramid(this.scene,6,10,2);
         this.tail = new MyPyramid(this.scene,6,10,2);
         this.eye = new MySphere(this.scene,50,50,0.1,true);
-        this.mat = new CGFappearance(this.scene)
+        this.paw = new MyBirdPaw(this.scene);
+        this.mat = new CGFappearance(this.scene);
+
 
         this.mat2 = new CGFappearance(this.scene);
         this.mat2.setDiffuse(0, 0, 0, 255/255);
@@ -152,6 +155,20 @@ export class MyBird extends CGFobject {
         this.mat.apply();
         this.back.display();   
         this.scene.popMatrix();
+
+        // paws
+        this.scene.pushMatrix();
+        this.scene.translate(0.4,-1.3,1.5);
+        this.scene.rotate(Math.PI/1.5,0,1,0);
+        this.paw.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(-0.4,-1.3,1.5);
+        this.scene.rotate(Math.PI/1.5,0,1,0);
+        this.paw.display();
+        this.scene.popMatrix();
+
 
         this.scene.popMatrix();
     }
