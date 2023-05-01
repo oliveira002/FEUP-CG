@@ -175,7 +175,7 @@ export class MyScene extends CGFscene {
 
 
     this.objects[this.selectedObject].display();
-    //this.birdEgg.display();
+    this.birdEgg.display();
     
     this.popMatrix();
 
