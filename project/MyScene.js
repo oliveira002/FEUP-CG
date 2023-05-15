@@ -8,6 +8,8 @@ import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyWing } from "./MyWing.js";
 import { MyBirdPaw } from "./MyBirdPaw.js";
 import { MyBillBoard } from "./MyBillBoard.js";
+import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
+import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 /**
  * MyScene
  * @constructor
@@ -53,8 +55,9 @@ export class MyScene extends CGFscene {
     this.head = new CGFtexture(this,"images/head.jpg");
     this.egg = new CGFtexture(this,"images/egg.jpg");
     this.heightMap = new CGFtexture(this, 'images/heightmap.jpg');
-    this.treeTexture = new CGFtexture(this, 'images/billboardtree.png');
-
+    this.tree1 = new CGFtexture(this, 'images/billboardtree.png');
+    this.tree2 = new CGFtexture(this, 'images/tree2.png');
+    this.tree3 = new CGFtexture(this, 'images/tree3.png');
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
@@ -62,11 +65,13 @@ export class MyScene extends CGFscene {
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this,Math.PI, 0, [0,0,0]);
     this.birdEgg = new MyBirdEgg(this,Math.PI, 0,[0,0,0]);
-    this.paw = new MyBirdPaw(this);
-    this.tree = new MyBillBoard(this,[0,0,0]);
+    this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1);
+    this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
+    this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
 
-    this.objects = [this.bird, this.panorama];
-    this.objectIDs = {'bird': 0, 'panorama': 1};
+
+    this.objects = [this.bird, this.panorama, this.birdEgg, this.tree, this.treeRow, this.treeGrid];
+    this.objectIDs = {'bird': 0, 'panorama': 1, 'birdEgg': 2, 'tree': 3, 'treeRow': 4, 'treeGrid': 5};
 
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
@@ -173,10 +178,10 @@ export class MyScene extends CGFscene {
     //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
 
 
-    //this.objects[this.selectedObject].display();
+    this.objects[this.selectedObject].display();
     //this.birdEgg.display();
-    this.tree.display();
-    
+    //this.tree.display();
+    //this.treeGrid.display();
     this.popMatrix();
 
 
