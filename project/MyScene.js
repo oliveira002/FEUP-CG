@@ -10,6 +10,7 @@ import { MyBirdPaw } from "./MyBirdPaw.js";
 import { MyBillBoard } from "./MyBillBoard.js";
 import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
+import { MyNest } from "./MyNest.js";
 /**
  * MyScene
  * @constructor
@@ -58,6 +59,7 @@ export class MyScene extends CGFscene {
     this.tree1 = new CGFtexture(this, 'images/billboardtree.png');
     this.tree2 = new CGFtexture(this, 'images/tree2.png');
     this.tree3 = new CGFtexture(this, 'images/tree3.png');
+    this.nest = new CGFtexture(this, 'images/nest.png');
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
@@ -68,10 +70,11 @@ export class MyScene extends CGFscene {
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
+    this.nest = new MyNest(this,2,10,2,true,this.nest);
 
 
-    this.objects = [this.bird, this.panorama, this.birdEgg, this.tree, this.treeRow, this.treeGrid];
-    this.objectIDs = {'bird': 0, 'panorama': 1, 'birdEgg': 2, 'tree': 3, 'treeRow': 4, 'treeGrid': 5};
+    this.objects = [this.bird, this.panorama, this.birdEgg, this.tree, this.treeRow, this.treeGrid, this.nest];
+    this.objectIDs = {'bird': 0, 'panorama': 1, 'birdEgg': 2, 'tree': 3, 'treeRow': 4, 'treeGrid': 5, 'nest': 6};
 
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
