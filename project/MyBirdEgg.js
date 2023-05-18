@@ -7,9 +7,10 @@ import { MySphere } from './MySphere.js';
  * @param scene - Reference to MyScene object
  */
 export class MyBirdEgg extends CGFobject {
-    constructor(scene,coords) {    
+    constructor(scene,coords, attached) {    
         super(scene);
         this.coords = coords;
+        this.attached = false;
         this.initBuffers();
 
     }

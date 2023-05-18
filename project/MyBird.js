@@ -7,6 +7,7 @@ import {MyPrism} from './MyPrism.js';
 import { MyTriangleBig } from './MyTriangleBig.js';
 import { MySphere } from './MySphere.js';
 import { MyBirdPaw } from './MyBirdPaw.js';
+import { MyBirdEgg } from './MyBirdEgg.js';
 
 /**
  * MyTangram
@@ -23,7 +24,12 @@ export class MyBird extends CGFobject {
         this.initCords = structuredClone(coords);
         this.initAng = ang;
         this.initBuffers();
-
+        this.pickEgg = false;
+        this.startPickEgg = false;
+        this.startTime = null;
+        this.lastTime = 0;
+        this.attachedEgg = null;
+        this.initialY = 0;
     }
 
     initBuffers() {
@@ -63,19 +69,53 @@ export class MyBird extends CGFobject {
     }
 
     update(t) {
-        var offset = (this.amplitude) / (60)
+        var refreshRate = 60;
+        var rate = 1000/60.0;
+        var offset = (this.amplitude) / (refreshRate)
+  
 
-        if(t % 1000 <= 500) {
-            this.coords[1] -= offset
+        if (this.pickEgg) {
+            if (!this.startPickEgg) {
+                this.startTime = t;
+                this.startPickEgg = true;
+                this.initialY = this.coords[1];
+            }
+            if(this.attachedEgg == null) {
+                this.getAttachedEgg();
+            }
+            console.log(this.attachedEgg)
+            var timeElapsed = (t - this.startTime) / 1000.0;
+            var targetY = 0; 
+        
+            if (timeElapsed < 1.0) {
+                var eggOffset = Math.abs(this.initialY - targetY) / 15;
+                this.coords[1] -= eggOffset;
+            } else if (timeElapsed >= 1.0 && timeElapsed < 2.0) {
+                var eggOffset = Math.abs(this.initialY - targetY) / 15;
+                this.coords[1] += eggOffset;
+            } else {
+                this.coords[1] = this.initialY;
+                this.startPickEgg = false;
+                this.pickEgg = false;
+            }
+        
+            this.lastTime = t;
         }
         else {
-            this.coords[1] += offset
+            if(t % 1000 < 500) {
+                this.coords[1] -= offset
+            }
+            else if(t % 1000 > 500 && t % 1000 < 1000) {
+                this.coords[1] += offset
+            }
         }
 
         this.vx = this.velo * Math.sin(this.ang);
         this.vz = this.velo * Math.cos(this.ang);
-        this.coords[0] += this.vx;
-        this.coords[2] += this.vz;
+        this.coords[0] -= this.vx;
+        this.coords[2] -= this.vz;
+
+
         this.wing.update(t);
         this.wing.updateSpeed(this.velo);
     }
@@ -83,33 +123,40 @@ export class MyBird extends CGFobject {
     isBirdOnEgg(eggCords, range) {
         const isInRangeX = Math.abs(this.coords[0] - eggCords[0]) <= range;
         const isInRangeZ = Math.abs(this.coords[2] - eggCords[2]) <= range;
-        return isInRangeX && isInRangeZ;
+        const isInRangeY = Math.abs(this.coords[1] - eggCords[1]) <= 0.5;
+
+        return isInRangeX && isInRangeZ && isInRangeY;
     }
 
-    verticalMovement(direction) {
-        // dir == 0, means the bird is going down
-        var offset = Math.abs(this.coords[1] - 0) / 60;
-        if(direction == 0) { // check if it goes under the ground
-            this.coords[1] -= offset;
+    getAttachedEgg() {
+        for(var i = 0; i < 4; i++) {
+            if(this.isBirdOnEgg(this.scene.eggs[i].coords,1)) {
+                this.attachedEgg = this.scene.eggs[i];
+                this.scene.eggs[i].attached = true;
+            }
         }
-        else {
-            this.coords[1] += offset;
-        }
-    }
-
-    pickUpEgg() {
-
     }
     
     
     display() {
+
         //this.update()
         this.scene.pushMatrix();
+        if (this.attachedEgg != null) {
+            this.scene.pushMatrix();
+            this.scene.translate(this.coords[0] - this.attachedEgg.coords[0],this.coords[1] - 0.5,this.coords[2]  - this.attachedEgg.coords[2]);
+            this.attachedEgg.display();
+            this.scene.popMatrix();
+          }
+        this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
         this.scene.scale(0.38,0.38,0.38);
-        this.scene.translate(-this.coords[0],-this.coords[1],-this.coords[2]);
         this.scene.rotate(this.ang,0,1,0);
         this.scene.translate(0,0,-0.98);
         
+
+        //egg
+
+
         //body
         this.scene.pushMatrix();
         this.mat.setTexture(this.scene.head);

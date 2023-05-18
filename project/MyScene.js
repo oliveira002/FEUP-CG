@@ -65,9 +65,8 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
-    this.bird = new MyBird(this,Math.PI, 0, [0,0,0]);
-    this.eggs = [new MyBirdEgg(this, [0,0,0]), new MyBirdEgg(this, [2,0,0]),new MyBirdEgg(this,[0,0,2]),new MyBirdEgg(this, [2,0,2])]
-    this.birdEgg = new MyBirdEgg(this, 0,[0,0,0]);
+    this.bird = new MyBird(this,Math.PI, 0, [4,2,4]);
+    this.eggs = [new MyBirdEgg(this, [0,0,0],false), new MyBirdEgg(this, [2,0,0],false),new MyBirdEgg(this,[0,0,2],false),new MyBirdEgg(this, [4,0,4],false)]
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
@@ -148,6 +147,11 @@ export class MyScene extends CGFscene {
       this.bird.resetPosition();
       keysPressed = true;
     }
+
+    if(this.gui.isKeyPressed("KeyP")) {
+      this.bird.pickEgg = true;
+      keysPressed = true;
+    }
   }
 
 
@@ -167,7 +171,7 @@ export class MyScene extends CGFscene {
     if (this.displayAxis) this.axis.display();
 
     this.pushMatrix();
-    this.terrain.display();
+    //this.terrain.display();
 
     // scale factor for the bird
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
