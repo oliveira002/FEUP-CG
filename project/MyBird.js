@@ -65,7 +65,7 @@ export class MyBird extends CGFobject {
     update(t) {
         var offset = (this.amplitude) / (60)
 
-        if(t % 1000 < 500) {
+        if(t % 1000 <= 500) {
             this.coords[1] -= offset
         }
         else {
@@ -78,6 +78,27 @@ export class MyBird extends CGFobject {
         this.coords[2] += this.vz;
         this.wing.update(t);
         this.wing.updateSpeed(this.velo);
+    }
+
+    isBirdOnEgg(eggCords, range) {
+        const isInRangeX = Math.abs(this.coords[0] - eggCords[0]) <= range;
+        const isInRangeZ = Math.abs(this.coords[2] - eggCords[2]) <= range;
+        return isInRangeX && isInRangeZ;
+    }
+
+    verticalMovement(direction) {
+        // dir == 0, means the bird is going down
+        var offset = Math.abs(this.coords[1] - 0) / 60;
+        if(direction == 0) { // check if it goes under the ground
+            this.coords[1] -= offset;
+        }
+        else {
+            this.coords[1] += offset;
+        }
+    }
+
+    pickUpEgg() {
+
     }
     
     

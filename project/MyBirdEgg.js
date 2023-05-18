@@ -7,16 +7,15 @@ import { MySphere } from './MySphere.js';
  * @param scene - Reference to MyScene object
  */
 export class MyBirdEgg extends CGFobject {
-    constructor(scene,ang,coords) {    
+    constructor(scene,coords) {    
         super(scene);
-        this.ang = ang;
+        this.coords = coords;
         this.initBuffers();
 
     }
 
     initBuffers() {
         this.egg = new MySphere(this.scene,50,50,0.1,true,false);
-        this.eggText = new CGFtexture(this.scene, "images/earth.jpg");
         this.mat = new CGFappearance(this.scene);
         this.testShader = new CGFshader(this.scene.gl,"shaders/egg.vert", "shaders/egg.frag");
 
@@ -25,6 +24,7 @@ export class MyBirdEgg extends CGFobject {
     display() {
         this.scene.pushMatrix();
         this.scene.setActiveShader(this.testShader);
+        this.scene.translate(this.coords[0],this.coords[1],this.coords[2])
         this.scene.scale(1.4,1.7,1.4);
         this.mat.setTexture(this.scene.egg);
         this.mat.apply();
