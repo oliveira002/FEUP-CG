@@ -86,9 +86,9 @@ export class MyScene extends CGFscene {
   update(t) {
     this.checkKeys();
     this.bird.update(t);
-    this.eggs.forEach(egg => {
-      egg.update(t);
-    });
+    for(let i = 0; i < this.eggs.length; i++){
+      this.eggs[i].update(t,i);
+    }
   }
 
 

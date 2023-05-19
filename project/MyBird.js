@@ -131,6 +131,7 @@ export class MyBird extends CGFobject {
         for(var i = 0; i < 4; i++) {
             if(this.isBirdOnEgg(this.scene.eggs[i].coords,1)) {
                 this.attachedEgg = this.scene.eggs[i];
+                this.scene.nest.removeEgg(this.scene.eggs[i]);
                 this.scene.eggs[i].attached = true;
                 this.scene.eggs = this.scene.eggs.filter(e => e != this.scene.eggs[i]);
                 break;

@@ -16,7 +16,58 @@ export class MyNest extends CGFobject {
         this.outside = true;
         this.equirectangular = equirectangular;
         this.coords = coords;
+        this.egg1 = null;
+        this.egg2 = null;
+        this.egg3 = null;
+        this.egg4 = null;
         this.initBuffers();
+    }
+    removeEgg(egg){
+        if(egg == this.egg1){
+            this.egg1 = null;
+        }
+        else if(egg == this.egg2){
+            this.egg2 = null;
+        }
+        else if(egg == this.egg3){
+            this.egg3 = null;
+        }
+        else if(egg == this.egg4){
+            this.egg4 = null;
+        }
+    }
+    checkEggCollision(eggIndex){
+        const egg = this.scene.eggs[eggIndex];
+        if(!(egg != this.egg1 && egg != this.egg2 && egg != this.egg3 && egg != this.egg4)){
+            return;
+        }
+        const eggCoords = egg.coords;
+        const nestCoords = this.coords;
+        const isInRangeX = Math.abs(eggCoords[0] - nestCoords[0]) <= 0.6;
+        const isInRangeZ = Math.abs(eggCoords[2] - nestCoords[2]) <= 0.6;
+        const isInRangeY = Math.abs(eggCoords[1] - nestCoords[1]) <= 0.1;
+        if(isInRangeX && isInRangeZ && isInRangeY){
+            egg.dropEgg = false;
+            if(!this.egg1){
+                this.egg1 = egg;
+                this.egg1.coords = [this.coords[0]+0.4,this.coords[1],this.coords[2]];
+            }
+            else if(!this.egg2){
+                this.egg2 = egg;
+                this.egg2.coords = [this.coords[0]-0.4,this.coords[1],this.coords[2]];
+            }
+            else if(!this.egg3){
+                this.egg3 = egg;
+                this.egg3.coords = [this.coords[0],this.coords[1],this.coords[2]+0.4];
+            }
+            else if(!this.egg4){
+                this.egg4 = egg;
+                this.egg4.coords = [this.coords[0],this.coords[1],this.coords[2]-0.4];
+            }
+            else{
+                egg.coords= [0,0,0];
+            }
+        }
     }
 
     initBuffers() {

@@ -11,6 +11,7 @@ export class MyBirdEgg extends CGFobject {
         super(scene);
         this.coords = coords;
         this.dropEgg = false;
+        this.offset = null;
         this.initBuffers();
 
     }
@@ -34,15 +35,21 @@ export class MyBirdEgg extends CGFobject {
         this.scene.setActiveShader(this.scene.defaultShader);
 
     }
-    update(t){
+    update(t,index){
         if(this.dropEgg){
-            var offset = this.coords[1] / 60;
-            this.coords[1] -= offset;
+            if(this.offset == null){
+                this.offset = this.coords[1] / 60;
+            }
+            if(this.offset){
+                this.coords[1] -= this.offset;
+            }
             if(this.coords[1] < 0){
                 this.dropEgg = false;
                 this.coords[1] = 0;
+                this.offset = null;
             }
         }
+        this.scene.nest.checkEggCollision(index)
     }
 
     enableNormalViz() {
