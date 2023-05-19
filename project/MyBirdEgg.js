@@ -7,10 +7,10 @@ import { MySphere } from './MySphere.js';
  * @param scene - Reference to MyScene object
  */
 export class MyBirdEgg extends CGFobject {
-    constructor(scene,coords, attached) {    
+    constructor(scene,coords, dropEgg) {    
         super(scene);
         this.coords = coords;
-        this.attached = false;
+        this.dropEgg = false;
         this.initBuffers();
 
     }
@@ -33,6 +33,16 @@ export class MyBirdEgg extends CGFobject {
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
 
+    }
+    update(t){
+        if(this.dropEgg){
+            var offset = this.coords[1] / 60;
+            this.coords[1] -= offset;
+            if(this.coords[1] < 0){
+                this.dropEgg = false;
+                this.coords[1] = 0;
+            }
+        }
     }
 
     enableNormalViz() {

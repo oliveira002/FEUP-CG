@@ -6,15 +6,16 @@ import {CGFappearance} from '../lib/CGF.js';
  * @param scene - Reference to MyScene object
  */
 export class MyNest extends CGFobject {
-	constructor(scene, slices, stacks,radius,equirectangular, texture){
+	constructor(scene, slices, stacks,equirectangular, texture,coords){
         super(scene);
 
         this.slices = slices;
         this.texture = texture;
         this.stacks = 2*stacks;
-        this.radius = radius;
+        this.radius = 2.5;
         this.outside = true;
         this.equirectangular = equirectangular;
+        this.coords = coords;
         this.initBuffers();
     }
 
@@ -113,8 +114,15 @@ export class MyNest extends CGFobject {
 
     display() {
         this.scene.pushMatrix();
+        this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
         this.scene.rotate(Math.PI,1,0,0);
         this.scene.scale(this.radius,this.radius,this.radius);
+        this.scene.scale(0.3,0.2,0.3);
+        this.mat.setSpecular(1,1,1,1);
+        this.mat.setShininess(10.0);
+        this.mat.setDiffuse(1,1,1,1); 
+        this.mat.setAmbient(1.5,1.5,1.5,1.5);
+        this.mat.setEmission(0.15,0.15,0.15,1);
         this.mat.setTexture(this.texture);
         this.mat.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);

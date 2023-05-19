@@ -83,7 +83,6 @@ export class MyBird extends CGFobject {
             if(this.attachedEgg == null) {
                 this.getAttachedEgg();
             }
-            console.log(this.attachedEgg)
             var timeElapsed = (t - this.startTime) / 1000.0;
             var targetY = 0; 
         
@@ -133,10 +132,23 @@ export class MyBird extends CGFobject {
             if(this.isBirdOnEgg(this.scene.eggs[i].coords,1)) {
                 this.attachedEgg = this.scene.eggs[i];
                 this.scene.eggs[i].attached = true;
+                this.scene.eggs = this.scene.eggs.filter(e => e != this.scene.eggs[i]);
+                break;
             }
         }
     }
-    
+    dropEgg() {
+        const nestCords = this.scene.nest.coords;
+        const isInRangeX = Math.abs(this.coords[0] - nestCords[0]) <= 0.6;
+        const isInRangeZ = Math.abs(this.coords[2] - nestCords[2]) <= 0.6;
+        if(isInRangeX && isInRangeZ && this.attachedEgg != null && nestCords[1] < this.coords[1]) {
+            this.attachedEgg.dropEgg = true;
+            this.attachedEgg.coords = [...this.coords];
+            this.scene.eggs.push(this.attachedEgg);
+            this.attachedEgg = null;
+        }
+
+    }
     
     display() {
 
