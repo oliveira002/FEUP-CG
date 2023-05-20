@@ -70,7 +70,7 @@ export class MyScene extends CGFscene {
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
-    this.nest = new MyNest(this,100,100,true,this.nestTexture,[-2,0,2]);
+    this.nest = new MyNest(this,100,100,true,this.nestTexture,[-2,-50,2]);
 
 
     this.objects = [this.bird, this.panorama, this.birdEgg, this.tree, this.treeRow, this.treeGrid, this.nest];

@@ -11,6 +11,7 @@ export class MyBirdEgg extends CGFobject {
         super(scene);
         this.coords = coords;
         this.dropEgg = false;
+        this.dropQuadratic = false;
         this.offset = null;
         this.initBuffers();
 
@@ -36,19 +37,41 @@ export class MyBirdEgg extends CGFobject {
 
     }
     update(t,index){
-        if(this.dropEgg){
+        if(!this.dropQuadratic){
+          if(this.dropEgg){
             if(this.offset == null){
-                this.offset = this.coords[1] / 60;
+                this.offset = (this.coords[1]-this.scene.nest.coords[1]) / 60;
             }
             if(this.offset){
                 this.coords[1] -= this.offset;
             }
-            if(this.coords[1] < 0){
+            if(this.coords[1]-this.scene.nest.coords[1] < 0){
                 this.dropEgg = false;
-                this.coords[1] = 0;
+                this.coords[1] = this.scene.nest.coords[1];
                 this.offset = null;
             }
+        }  
+        }else{
+            if(this.dropEgg){
+                if(this.offset == null){
+                    this.offset = (this.coords[1]-this.scene.nest.coords[1]) / 60;
+                }
+                if(this.offset){
+                    this.coords[1] -= this.offset;
+
+                    const xDistance = this.coords[0] - this.scene.nest.coords[0] + 0.3;
+                    const zDistance = this.coords[2] - this.scene.nest.coords[2] + 0.3;
+
+                    const xHorizontalOffset = (xDistance ** 2) / 27;
+                    const zHorizontalOffset = (zDistance ** 2) / 27;
+
+                    this.coords[0] -= xHorizontalOffset * (xDistance < 0 ? -1 : 1);
+                    this.coords[2] -= zHorizontalOffset * (zDistance < 0 ? -1 : 1);
+                }
+                
+            }
         }
+        
         this.scene.nest.checkEggCollision(index)
     }
 

@@ -43,8 +43,8 @@ export class MyNest extends CGFobject {
         }
         const eggCoords = egg.coords;
         const nestCoords = this.coords;
-        const isInRangeX = Math.abs(eggCoords[0] - nestCoords[0]) <= 0.6;
-        const isInRangeZ = Math.abs(eggCoords[2] - nestCoords[2]) <= 0.6;
+        const isInRangeX = Math.abs(eggCoords[0] - nestCoords[0]) <= 0.8;
+        const isInRangeZ = Math.abs(eggCoords[2] - nestCoords[2]) <= 0.8;
         const isInRangeY = Math.abs(eggCoords[1] - nestCoords[1]) <= 0.1;
         if(isInRangeX && isInRangeZ && isInRangeY){
             egg.dropEgg = false;

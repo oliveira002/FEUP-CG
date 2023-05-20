@@ -30,6 +30,7 @@ export class MyBird extends CGFobject {
         this.lastTime = 0;
         this.attachedEgg = null;
         this.initialY = 0;
+        this.dropEggQuadratic = true;
     }
 
     initBuffers() {
@@ -84,7 +85,7 @@ export class MyBird extends CGFobject {
                 this.getAttachedEgg();
             }
             var timeElapsed = (t - this.startTime) / 1000.0;
-            var targetY = 0; 
+            var targetY = -30; 
         
             if (timeElapsed < 1.0) {
                 var eggOffset = Math.abs(this.initialY - targetY) / 15;
@@ -139,16 +140,38 @@ export class MyBird extends CGFobject {
         }
     }
     dropEgg() {
-        const nestCords = this.scene.nest.coords;
-        const isInRangeX = Math.abs(this.coords[0] - nestCords[0]) <= 0.6;
-        const isInRangeZ = Math.abs(this.coords[2] - nestCords[2]) <= 0.6;
-        if(isInRangeX && isInRangeZ && this.attachedEgg != null && nestCords[1] < this.coords[1]) {
-            this.attachedEgg.dropEgg = true;
-            this.attachedEgg.coords = [...this.coords];
-            this.scene.eggs.push(this.attachedEgg);
-            this.attachedEgg = null;
+        if(this.attachedEgg == null) {
+            return;
         }
-
+        if(!this.dropEggQuadratic) {
+            const nestCords = this.scene.nest.coords;
+            const isInRangeX = Math.abs(this.coords[0] - nestCords[0]) <= 0.6;
+            const isInRangeZ = Math.abs(this.coords[2] - nestCords[2]) <= 0.6;
+            if(isInRangeX && isInRangeZ && this.attachedEgg != null && nestCords[1] < this.coords[1]) {
+                this.attachedEgg.dropQuadratic = false;
+                this.attachedEgg.dropEgg = true;
+                this.attachedEgg.coords = [...this.coords];
+                this.scene.eggs.push(this.attachedEgg);
+                this.attachedEgg = null;
+            }
+        }else{
+            const nestCords = this.scene.nest.coords;
+            const xVec = nestCords[0] - this.coords[0];
+            const zVec = nestCords[2] - this.coords[2];
+            const yDiff = nestCords[1] - this.coords[1];
+            const dist = Math.sqrt(xVec * xVec + zVec * zVec);
+            const range = 5 + Math.abs(yDiff)/4;
+            const isInRange = dist <= range;
+            
+            if (isInRange && nestCords[1] < this.coords[1]) {
+                this.attachedEgg.dropQuadratic = true;
+                this.attachedEgg.dropEgg = true;
+                this.attachedEgg.coords = [...this.coords];
+                this.scene.eggs.push(this.attachedEgg);
+                this.attachedEgg = null;
+            }
+            
+        }
     }
     
     display() {
