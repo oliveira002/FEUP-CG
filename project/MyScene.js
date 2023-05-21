@@ -11,6 +11,8 @@ import { MyBillBoard } from "./MyBillBoard.js";
 import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 import { MyNest } from "./MyNest.js";
+import { MyWater } from "./MyWater.js";
+
 /**
  * MyScene
  * @constructor
@@ -71,7 +73,7 @@ export class MyScene extends CGFscene {
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.nest = new MyNest(this,100,100,true,this.nestTexture,[-2,-50,2]);
-
+    this.water = new MyWater(this, -69);
 
     this.objects = [this.bird, this.panorama, this.birdEgg, this.tree, this.treeRow, this.treeGrid, this.nest];
     this.objectIDs = {'bird': 0, 'panorama': 1, 'birdEgg': 2, 'tree': 3, 'treeRow': 4, 'treeGrid': 5, 'nest': 6};
@@ -89,6 +91,7 @@ export class MyScene extends CGFscene {
     for(let i = 0; i < this.eggs.length; i++){
       this.eggs[i].update(t,i);
     }
+    this.water.update(t);
   }
 
 
@@ -205,10 +208,17 @@ export class MyScene extends CGFscene {
 
     this.objects[this.selectedObject].display();
     this.nest.display();
-    if(this.displayNormals)
+    this.water.display();
+
+    if(this.displayNormals){
       this.nest.enableNormalViz();
-    else
+      this.water.enableNormalViz();
+    }
+    else{
       this.nest.disableNormalViz();
+      this.water.disableNormalViz();
+    }
+
     //this.birdEgg.display();
     //this.tree.display();
     //this.treeGrid.display();
