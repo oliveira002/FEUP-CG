@@ -206,7 +206,7 @@ export class MyScene extends CGFscene {
       }
       this.treeRow.display();
       this.bird.display();
-      //this.water.display();
+      this.water.display();
       this.nest.display();
       for(var i = 0; i < this.eggs.length; i++) {
         this.eggs[i].display();
