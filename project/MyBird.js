@@ -28,7 +28,7 @@ export class MyBird extends CGFobject {
         this.lastTime = 0;
         this.attachedEgg = null;
         this.initialY = 0;
-        this.dropEggQuadratic = false;
+        this.dropEggQuadratic = true;
         this.down = true;
         this.notToUse = false;
     }
