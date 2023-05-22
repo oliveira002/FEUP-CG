@@ -43,26 +43,26 @@ export class MyNest extends CGFobject {
         }
         const eggCoords = egg.coords;
         const nestCoords = this.coords;
-        const isInRangeX = Math.abs(eggCoords[0] - nestCoords[0]) <= 0.8;
-        const isInRangeZ = Math.abs(eggCoords[2] - nestCoords[2]) <= 0.8;
-        const isInRangeY = Math.abs(eggCoords[1] - nestCoords[1]) <= 0.1;
+        const isInRangeX = Math.abs(eggCoords[0] - nestCoords[0]) <= 1.8;
+        const isInRangeZ = Math.abs(eggCoords[2] - nestCoords[2]) <= 1.8;
+        const isInRangeY = Math.abs(eggCoords[1] - nestCoords[1]) <= 1;
         if(isInRangeX && isInRangeZ && isInRangeY){
             egg.dropEgg = false;
             if(!this.egg1){
                 this.egg1 = egg;
-                this.egg1.coords = [this.coords[0]+0.4,this.coords[1],this.coords[2]];
+                this.egg1.coords = [this.coords[0]+1,this.coords[1],this.coords[2]];
             }
             else if(!this.egg2){
                 this.egg2 = egg;
-                this.egg2.coords = [this.coords[0]-0.4,this.coords[1],this.coords[2]];
+                this.egg2.coords = [this.coords[0]-1,this.coords[1],this.coords[2]];
             }
             else if(!this.egg3){
                 this.egg3 = egg;
-                this.egg3.coords = [this.coords[0],this.coords[1],this.coords[2]+0.4];
+                this.egg3.coords = [this.coords[0],this.coords[1],this.coords[2]+1];
             }
             else if(!this.egg4){
                 this.egg4 = egg;
-                this.egg4.coords = [this.coords[0],this.coords[1],this.coords[2]-0.4];
+                this.egg4.coords = [this.coords[0],this.coords[1],this.coords[2]-1];
             }
             else{
                 egg.coords= [0,0,0];
@@ -169,6 +169,7 @@ export class MyNest extends CGFobject {
         this.scene.rotate(Math.PI,1,0,0);
         this.scene.scale(this.radius,this.radius,this.radius);
         this.scene.scale(0.3,0.2,0.3);
+        this.scene.scale(2.5,2.5,2.5);
         this.mat.setSpecular(1,1,1,1);
         this.mat.setShininess(10.0);
         this.mat.setDiffuse(1,1,1,1); 

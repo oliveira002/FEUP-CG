@@ -85,12 +85,12 @@ export class MyBird extends CGFobject {
                 this.getAttachedEgg();
             }
             var timeElapsed = (t - this.startTime) / 1000.0;
-            var targetY = -30; 
+            var targetY = -33; 
         
             if (timeElapsed < 1.0) {
                 var eggOffset = Math.abs(this.initialY - targetY) / 15;
                 this.coords[1] -= eggOffset;
-            } else if (timeElapsed >= 1.0 && timeElapsed < 2.0) {
+            } else if (timeElapsed >= 1.0 && timeElapsed <= 2.0) {
                 var eggOffset = Math.abs(this.initialY - targetY) / 15;
                 this.coords[1] += eggOffset;
             } else {
@@ -123,14 +123,14 @@ export class MyBird extends CGFobject {
     isBirdOnEgg(eggCords, range) {
         const isInRangeX = Math.abs(this.coords[0] - eggCords[0]) <= range;
         const isInRangeZ = Math.abs(this.coords[2] - eggCords[2]) <= range;
-        const isInRangeY = Math.abs(this.coords[1] - eggCords[1]) <= 0.5;
+        const isInRangeY = Math.abs(this.coords[1] - eggCords[1]) <= 3;
 
         return isInRangeX && isInRangeZ && isInRangeY;
     }
 
     getAttachedEgg() {
         for(var i = 0; i < 4; i++) {
-            if(this.isBirdOnEgg(this.scene.eggs[i].coords,1)) {
+            if(this.isBirdOnEgg(this.scene.eggs[i].coords,7.5)) {
                 this.attachedEgg = this.scene.eggs[i];
                 this.scene.nest.removeEgg(this.scene.eggs[i]);
                 this.scene.eggs[i].attached = true;
@@ -160,7 +160,7 @@ export class MyBird extends CGFobject {
             const zVec = nestCords[2] - this.coords[2];
             const yDiff = nestCords[1] - this.coords[1];
             const dist = Math.sqrt(xVec * xVec + zVec * zVec);
-            const range = 5 + Math.abs(yDiff)/4;
+            const range = 2.2 * Math.abs(yDiff)/4;
             const isInRange = dist <= range;
             
             if (isInRange && nestCords[1] < this.coords[1]) {
@@ -180,12 +180,12 @@ export class MyBird extends CGFobject {
         this.scene.pushMatrix();
         if (this.attachedEgg != null) {
             this.scene.pushMatrix();
-            this.scene.translate(this.coords[0] - this.attachedEgg.coords[0],this.coords[1] - 0.5,this.coords[2]  - this.attachedEgg.coords[2]);
+            this.scene.translate(this.coords[0] - this.attachedEgg.coords[0],this.coords[1] - 2.9 - this.attachedEgg.coords[1],this.coords[2]  - this.attachedEgg.coords[2] - 0.2);
             this.attachedEgg.display();
             this.scene.popMatrix();
           }
         this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
-        this.scene.scale(0.38,0.38,0.38);
+        this.scene.scale(2,2,2);
         this.scene.rotate(this.ang,0,1,0);
         this.scene.translate(0,0,-0.98);
         

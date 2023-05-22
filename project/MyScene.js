@@ -68,7 +68,7 @@ export class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this,Math.PI, 0, [0,4,0]);
-    this.eggs = [new MyBirdEgg(this, [0,0,0],false), new MyBirdEgg(this, [2,0,0],false),new MyBirdEgg(this,[0,0,2],false),new MyBirdEgg(this, [4,0,4],false)]
+    this.eggs = [new MyBirdEgg(this, [82,-61.2,-21],false), new MyBirdEgg(this, [-39,-61.2,29],false),new MyBirdEgg(this,[-70,-61.2,-10],false),new MyBirdEgg(this, [0,-61.2,-100],false)]
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1,0);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[-5.5,-4.5,-4.4]);
     this.treeRowEx = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
@@ -76,7 +76,7 @@ export class MyScene extends CGFscene {
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[3.5,-4.8,2]);
     this.treeGrid2 = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[5.5,-4.8,-2.3]);
     this.treeGrid3 = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[-4,-4.8,2.5]);
-    this.nest = new MyNest(this,100,100,true,this.nestTexture,[-2,0,2]);
+    this.nest = new MyNest(this,100,100,true,this.nestTexture,[85,-61.2,-50]);
     this.water = new MyWater(this, -69);
     this.sphere = new MySphere(this,50,50,1,true,true);
 
@@ -207,9 +207,9 @@ export class MyScene extends CGFscene {
       this.rotate(Math.PI/4,0,1,0)
       this.treeRow.display();
       this.popMatrix()
-      //this.bird.display();
+      this.bird.display();
       //this.water.display();
-      //this.nest.display();
+      this.nest.display();
       for(var i = 0; i < this.eggs.length; i++) {
         this.eggs[i].display();
       }

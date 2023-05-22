@@ -63,8 +63,8 @@ export class MyBirdEgg extends CGFobject {
                     const xDistance = this.coords[0] - this.scene.nest.coords[0] + 0.3;
                     const zDistance = this.coords[2] - this.scene.nest.coords[2] + 0.3;
 
-                    const xHorizontalOffset = (xDistance ** 2) / 27;
-                    const zHorizontalOffset = (zDistance ** 2) / 27;
+                    const xHorizontalOffset = (xDistance ** 2) / 50;
+                    const zHorizontalOffset = (zDistance ** 2) / 50;
 
                     this.coords[0] -= xHorizontalOffset * (xDistance < 0 ? -1 : 1);
                     this.coords[2] -= zHorizontalOffset * (zDistance < 0 ? -1 : 1);
