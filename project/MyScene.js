@@ -83,8 +83,8 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this,50,50,1,true,true);
 
     
-    this.objects = [this.sphere, this.tree, this.panorama, this.bird, this.birdEgg, this.nest, this.terrain, this.tree, this.treeRowEx, this.treeGridEx];
-    this.objectIDs = {'Earth': 0, 'Scene': 1, 'Panorama': 2, 'Bird': 3, 'Egg': 4, 'Nest/Eggs': 5, 'Terrain' : 6, 'Tree': 7, 'TreeRow': 8, 'TreeGroup': 9};
+    this.objects = [this.panorama, this.tree, this.sphere, this.bird, this.birdEgg, this.nest, this.terrain, this.tree, this.treeRowEx, this.treeGridEx];
+    this.objectIDs = {'Panorama': 0, 'Scene': 1, 'Earth': 2, 'Bird': 3, 'Egg': 4, 'Nest/Eggs': 5, 'Terrain' : 6, 'Tree': 7, 'TreeRow': 8, 'TreeGroup': 9};
 
 
     this.appearance = new CGFappearance(this);
@@ -214,7 +214,7 @@ export class MyScene extends CGFscene {
         this.eggs[i].display();
       }
     }
-    else if(this.selectedObject == 0) {
+    else if(this.selectedObject == 2) {
       this.mat = new CGFappearance(this)
       this.mat.setTexture(this.earth);
       this.mat.apply();

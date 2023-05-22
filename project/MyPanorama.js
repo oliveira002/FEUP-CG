@@ -23,7 +23,7 @@ export class MyPanorama extends CGFobject {
         
         this.scene.pushMatrix();
         // camera for panorama
-        //this.scene.translate(this.scene.camera.position[0],this.scene.camera.position[1],this.scene.camera.position[2])
+        this.scene.translate(this.scene.camera.position[0],this.scene.camera.position[1],this.scene.camera.position[2])
         this.mat.setTexture(this.texture);
         this.mat.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
