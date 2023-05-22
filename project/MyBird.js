@@ -30,7 +30,7 @@ export class MyBird extends CGFobject {
         this.initialY = 0;
         this.dropEggQuadratic = true;
         this.down = true;
-        this.notToUse = false;
+        this.notToUse = true;
     }
 
     initBuffers() {
@@ -173,7 +173,6 @@ export class MyBird extends CGFobject {
                 this.scene.eggs.push(this.attachedEgg);
                 this.attachedEgg = null;
             }
-            
         }
     }
 
@@ -219,11 +218,7 @@ export class MyBird extends CGFobject {
         this.scene.scale(2,2,2);
         this.scene.rotate(this.ang,0,1,0);
         this.scene.translate(0,0,-0.98);
-        
-
-        //egg
-
-
+    
         //body
         this.scene.pushMatrix();
         this.mat.setTexture(this.scene.head);

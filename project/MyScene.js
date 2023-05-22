@@ -82,8 +82,10 @@ export class MyScene extends CGFscene {
     this.water = new MyWater(this, -69);
     this.sphere = new MySphere(this,50,50,1,true,true);
 
+    
     this.objects = [this.tree, this.sphere, this.panorama, this.bird, this.birdEgg, this.nest, this.terrain, this.tree, this.treeRowEx, this.treeGridEx];
     this.objectIDs = {'Scene': 0, 'Earth': 1, 'Panorama': 2, 'Bird': 3, 'Egg': 4, 'Nest/Eggs': 5, 'Terrain' : 6, 'Tree': 7, 'TreeRow': 8, 'TreeGroup': 9};
+
 
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
@@ -196,6 +198,7 @@ export class MyScene extends CGFscene {
         this.objects[this.selectedObject].enableNormalViz();
     else
         this.objects[this.selectedObject].disableNormalViz();
+      
     
     if(this.selectedObject == 0) {
       this.terrain.display();
