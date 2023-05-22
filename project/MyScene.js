@@ -72,7 +72,7 @@ export class MyScene extends CGFscene {
     this.eggs = [new MyBirdEgg(this, [82,-61.2,-21],false), new MyBirdEgg(this, [-39,-61.2,29],false),new MyBirdEgg(this,[-70,-61.2,-10],false),new MyBirdEgg(this, [0,-61.2,-100],false)]
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1,0);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[-6,-4.5,-2.5],3);
-    this.treeRowEx = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,-4],6);
+    this.treeRowEx = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0],6);
     this.treeGridEx = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[3.5,-4.8,2]);
     this.treeGrid2 = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[5.5,-4.8,-2.3]);
@@ -82,9 +82,10 @@ export class MyScene extends CGFscene {
     this.water = new MyWater(this, -69);
     this.sphere = new MySphere(this,50,50,1,true,true);
 
+
     
-    this.objects = [this.treeRowEx, this.tree, this.sphere, this.panorama, this.birdEgg, this.terrain, this.bird, this.tree, this.nest, this.treeGridEx, this.treeRowEx];
-    this.objectIDs = {'Trees': 0, 'Scene': 1, 'Earth': 2, 'Panorama': 3, 'Egg': 4, 'Terrain': 5, 'Bird' : 6, 'Tree': 7, 'Nest/Eggs': 8, 'TreeGroup': 9, 'TreeRow': 10};
+    this.objects = [this.tree, this.sphere, this.panorama, this.bird, this.birdEgg, this.nest, this.terrain, this.tree, this.treeRowEx, this.treeGridEx];
+    this.objectIDs = {'Scene': 0, 'Earth': 1, 'Panorama': 2, 'Bird': 3, 'Egg': 4, 'Nest/Eggs': 5, 'Terrain' : 6, 'Tree': 7, 'TreeRow': 8, 'TreeGroup': 9};
 
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
@@ -199,7 +200,7 @@ export class MyScene extends CGFscene {
         this.objects[this.selectedObject].disableNormalViz();
       
     
-    if(this.selectedObject == 1) {
+    if(this.selectedObject == 0) {
       this.terrain.display();
       this.panorama.display();
       for(var i = 0; i < this.treeGrids.length; i++) {
@@ -213,17 +214,13 @@ export class MyScene extends CGFscene {
         this.eggs[i].display();
       }
     }
-    else if(this.selectedObject == 0) {
-      this.treeRowEx.display()
-      this.treeGridEx.display()
-    }
-    else if(this.selectedObject == 2) {
+    else if(this.selectedObject == 1) {
       this.mat = new CGFappearance(this)
       this.mat.setTexture(this.earth);
       this.mat.apply();
       this.sphere.display();
     }
-    else if(this.selectedObject == 8) {
+    else if(this.selectedObject == 5) {
       this.bird.display();
       this.nest.display();
       for(var i = 0; i < this.eggs.length; i++) {
@@ -232,7 +229,7 @@ export class MyScene extends CGFscene {
     }
     else {
       this.objects[this.selectedObject].display();
-    }
+    }    
 
     this.popMatrix();
   }
