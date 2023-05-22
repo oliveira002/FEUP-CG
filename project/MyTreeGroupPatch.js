@@ -29,15 +29,15 @@ export class MyTreeGroupPatch extends CGFobject {
     createRow(row) {
         var firstTree = this.randomInteger(0,2);
         var firstFactor = this.randomFloat(1,1.8);
-        this.trees[row * 3] = new MyBillBoard(this.scene,this.textures[firstTree],[...this.coords],firstFactor);
+        this.trees[row * 3] = new MyBillBoard(this.scene,this.textures[firstTree],[...this.coords],firstFactor,0);
         for(var i = 1; i < 3; i++) {
           var textureIdx = this.randomInteger(0,2);
-          var xOffset = this.randomFloat(1,1.8);
-          var zOffset = this.randomFloat(-0.4,0.4);
+          var xOffset = this.randomFloat(1,1.4);
+          var zOffset = this.randomFloat(-0.3,0.3);
           var scaleFactor = this.randomFloat(1,1.8);
           this.coords[0] += xOffset;
           this.coords[2] += zOffset;
-          this.trees[i + (row * 3)] = new MyBillBoard(this.scene,this.textures[textureIdx],[...this.coords],scaleFactor); 
+          this.trees[i + (row * 3)] = new MyBillBoard(this.scene,this.textures[textureIdx],[...this.coords],scaleFactor,0); 
         }
       }
       

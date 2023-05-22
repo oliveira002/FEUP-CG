@@ -69,7 +69,7 @@ export class MyScene extends CGFscene {
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this,Math.PI, 0, [0,4,0]);
     this.eggs = [new MyBirdEgg(this, [0,0,0],false), new MyBirdEgg(this, [2,0,0],false),new MyBirdEgg(this,[0,0,2],false),new MyBirdEgg(this, [4,0,4],false)]
-    this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1);
+    this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1,0);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[-5.5,-4.5,-4.4]);
     this.treeRowEx = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.treeGridEx = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);

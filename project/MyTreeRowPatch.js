@@ -17,7 +17,7 @@ export class MyTreeRowPatch extends CGFobject {
 
     createRow() {
         var firstTree = this.randomInteger(0,2);
-        this.trees[0] = new MyBillBoard(this.scene,this.textures[firstTree],[...this.coords],1);
+        this.trees[0] = new MyBillBoard(this.scene,this.textures[firstTree],[...this.coords],1,Math.PI/4);
         for(var i = 1; i < 6; i++) {
           var textureIdx = this.randomInteger(0,2);
           var xOffset = this.randomFloat(0.5,2.6);
@@ -25,7 +25,7 @@ export class MyTreeRowPatch extends CGFobject {
           this.coords[0] += xOffset;
           this.coords[2] += zOffset;
           console.log(this.coords)
-          this.trees[i] = new MyBillBoard(this.scene,this.textures[textureIdx],[...this.coords],1); 
+          this.trees[i] = new MyBillBoard(this.scene,this.textures[textureIdx],[...this.coords],1,Math.PI/4); 
         }
       }
       

@@ -2,12 +2,13 @@ import {CGFappearance, CGFobject, CGFshader, CGFtexture} from '../lib/CGF.js';
 import { MyQuad } from './MyQuad.js';
 
 export class MyBillBoard extends CGFobject {
-    constructor(scene,texture, coords, scale) {    
+    constructor(scene,texture, coords, scale, rotAngle) {    
         super(scene);
         this.initBuffers();
         this.texture = texture;
         this.coords = coords;
         this.scale = scale;
+        this.rotAngle = rotAngle;
     }
 
     initBuffers() {
@@ -30,7 +31,7 @@ export class MyBillBoard extends CGFobject {
         vec3.cross(cross_prod,cam,normals);
         var angle = Math.acos(dot_prod);
         vec3.normalize(cross_prod,cross_prod);
-        this.scene.rotate(-angle,0,cross_prod[1],0);
+        this.scene.rotate(-angle + this.rotAngle,0,cross_prod[1],0);
     }
     
     display() {
