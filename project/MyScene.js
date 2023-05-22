@@ -185,13 +185,8 @@ export class MyScene extends CGFscene {
     if (this.displayAxis) this.axis.display();
 
     this.pushMatrix();
-    //this.terrain.display();
 
-    // scale factor for the bird
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
-
-    
-    // display normals of the objects
 
     if (this.displayNormals)
         this.objects[this.selectedObject].enableNormalViz();
@@ -226,7 +221,5 @@ export class MyScene extends CGFscene {
     }
 
     this.popMatrix();
-
-
   }
 }
