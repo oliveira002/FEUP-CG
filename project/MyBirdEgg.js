@@ -29,6 +29,7 @@ export class MyBirdEgg extends CGFobject {
         this.scene.setActiveShader(this.testShader);
         this.scene.translate(this.coords[0],this.coords[1],this.coords[2])
         this.scene.scale(1.4,1.7,1.4);
+        this.scene.scale(4,4,4)
         this.mat.setTexture(this.scene.egg);
         this.mat.apply();
         this.egg.display();
