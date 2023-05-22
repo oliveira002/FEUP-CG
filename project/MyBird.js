@@ -32,7 +32,7 @@ export class MyBird extends CGFobject {
         this.initialY = 0;
         this.dropEggQuadratic = true;
         this.down = true;
-        this.notToUse = true;
+        this.notToUse = false;
     }
 
     initBuffers() {
