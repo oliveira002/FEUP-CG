@@ -67,16 +67,19 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
-    this.bird = new MyBird(this,Math.PI, 0, [4,2,4]);
-    this.eggs = [new MyBirdEgg(this, [3,0,2],false), new MyBirdEgg(this, [2,0,0],false),new MyBirdEgg(this,[0,0,2],false),new MyBirdEgg(this, [4,0,4],false)]
+    this.bird = new MyBird(this,Math.PI, 0, [0,4,0]);
+    this.eggs = [new MyBirdEgg(this, [0,0,0],false), new MyBirdEgg(this, [2,0,0],false),new MyBirdEgg(this,[0,0,2],false),new MyBirdEgg(this, [4,0,4],false)]
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
-    this.nest = new MyNest(this,100,100,true,this.nestTexture,[-2,-50,2]);
+    this.nest = new MyNest(this,100,100,true,this.nestTexture,[-2,0,2]);
     this.water = new MyWater(this, -69);
+    this.sphere = new MySphere(this,50,50,1,true,true);
 
-    this.objects = [this.bird, this.panorama, this.birdEgg, this.tree, this.treeRow, this.treeGrid, this.nest];
-    this.objectIDs = {'bird': 0, 'panorama': 1, 'birdEgg': 2, 'tree': 3, 'treeRow': 4, 'treeGrid': 5, 'nest': 6};
+
+
+    this.objects = [this.tree,this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.tree, this.treeRow, this.treeGrid];
+    this.objectIDs = {'Scene': 0, 'Earth': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4, 'Nest/Eggs': 5, 'Tree': 6, 'TreeRow': 7, 'TreeGroup': 8};
 
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
@@ -182,7 +185,7 @@ export class MyScene extends CGFscene {
     if (this.displayAxis) this.axis.display();
 
     this.pushMatrix();
-    this.terrain.display();
+    //this.terrain.display();
 
     // scale factor for the bird
     this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
@@ -195,33 +198,33 @@ export class MyScene extends CGFscene {
     else
         this.objects[this.selectedObject].disableNormalViz();
     
-    //this.translate(this.camera.position[0],this.camera.position[1],this.camera.position[2])
-  
-  
-    for(var i = 0; i < this.eggs.length; i++) {
-      this.eggs[i].display();
-      if(this.displayNormals)
-        this.eggs[i].enableNormalViz();
-      else
-        this.eggs[i].disableNormalViz();
+    if(this.selectedObject == 0) {
+      this.terrain.display();
+      this.panorama.display();
+      this.bird.display();
+      this.water.display();
+      this.nest.display();
+      for(var i = 0; i < this.eggs.length; i++) {
+        this.eggs[i].display();
+      }
+    }
+    else if(this.selectedObject == 1) {
+      this.mat = new CGFappearance(this)
+      this.mat.setTexture(this.earth);
+      this.mat.apply();
+      this.sphere.display();
+    }
+    else if(this.selectedObject == 5) {
+      this.bird.display();
+      this.nest.display();
+      for(var i = 0; i < this.eggs.length; i++) {
+        this.eggs[i].display();
+      }
+    }
+    else {
+      this.objects[this.selectedObject].display();
     }
 
-    this.objects[this.selectedObject].display();
-    this.nest.display();
-    this.water.display();
-
-    if(this.displayNormals){
-      this.nest.enableNormalViz();
-      this.water.enableNormalViz();
-    }
-    else{
-      this.nest.disableNormalViz();
-      this.water.disableNormalViz();
-    }
-
-    //this.birdEgg.display();
-    //this.tree.display();
-    //this.treeGrid.display();
     this.popMatrix();
 
 

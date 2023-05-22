@@ -8,7 +8,6 @@ import {CGFappearance} from '../lib/CGF.js';
 export class MySphere extends CGFobject {
 	constructor(scene, slices, stacks,radius,outside,equirectangular){
         super(scene);
-
         this.slices = slices;
         this.stacks = 2*stacks;
         this.radius = radius;
