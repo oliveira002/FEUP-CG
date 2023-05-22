@@ -100,8 +100,7 @@ export class MyScene extends CGFscene {
       if(this.eggs[i].dropEgg)
         this.eggs[i].update(t,i);
     }
-    if (t % 2 == 0)
-      this.water.update(t);
+    this.water.update(t);
   }
 
 

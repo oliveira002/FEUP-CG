@@ -31,6 +31,8 @@ export class MyBird extends CGFobject {
         this.attachedEgg = null;
         this.initialY = 0;
         this.dropEggQuadratic = true;
+        this.down = true;
+        this.notToUse = true;
     }
 
     initBuffers() {
@@ -75,6 +77,10 @@ export class MyBird extends CGFobject {
   
 
         if (this.pickEgg) {
+            if(this.notToUse) {
+                this.birdVertical();
+                return;
+            }
             if (!this.startPickEgg) {
                 this.startTime = t;
                 this.startPickEgg = true;
@@ -172,7 +178,35 @@ export class MyBird extends CGFobject {
             
         }
     }
-    
+
+    birdVertical() {
+        var targetY = -60;
+
+        if(this.attachedEgg == null) {
+            this.getAttachedEgg();
+        }
+
+        if(this.down) {
+            if(this.coords[1] <= targetY) {
+                this.coords[1] = targetY;
+                this.down = false;
+            }
+            else {
+                this.coords[1] -= 2;
+            }
+        }
+        else {
+            if(this.coords[1] >= this.initialY) {
+                this.coords[1] = this.initialY;
+                this.pickEgg = false;
+                this.down = true;
+            }
+            else {
+                this.coords[1] += 2;
+            }
+        }
+    }
+
     display() {
 
         //this.update()
