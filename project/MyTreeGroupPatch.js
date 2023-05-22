@@ -45,6 +45,7 @@ export class MyTreeGroupPatch extends CGFobject {
     display() {
         for(var i = 0; i < 9; i++) {
             this.scene.pushMatrix();
+            this.scene.scale(13,13,13)
             this.trees[i].display();
             this.scene.popMatrix();
         }

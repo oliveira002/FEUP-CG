@@ -70,15 +70,19 @@ export class MyScene extends CGFscene {
     this.bird = new MyBird(this,Math.PI, 0, [0,4,0]);
     this.eggs = [new MyBirdEgg(this, [0,0,0],false), new MyBirdEgg(this, [2,0,0],false),new MyBirdEgg(this,[0,0,2],false),new MyBirdEgg(this, [4,0,4],false)]
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1);
-    this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
-    this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
+    this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[-5.5,-4.5,-4.4]);
+    this.treeRowEx = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
+    this.treeGridEx = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[0,0,0]);
+    this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[3.5,-4.8,2]);
+    this.treeGrid2 = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[5.5,-4.8,-2.3]);
+    this.treeGrid3 = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[-4,-4.8,2.5]);
     this.nest = new MyNest(this,100,100,true,this.nestTexture,[-2,0,2]);
     this.water = new MyWater(this, -69);
     this.sphere = new MySphere(this,50,50,1,true,true);
 
 
 
-    this.objects = [this.tree,this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.tree, this.treeRow, this.treeGrid];
+    this.objects = [this.tree,this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.tree, this.treeRowEx, this.treeGridEx];
     this.objectIDs = {'Scene': 0, 'Earth': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4, 'Nest/Eggs': 5, 'Tree': 6, 'TreeRow': 7, 'TreeGroup': 8};
 
     this.appearance = new CGFappearance(this);
@@ -196,9 +200,16 @@ export class MyScene extends CGFscene {
     if(this.selectedObject == 0) {
       this.terrain.display();
       this.panorama.display();
-      this.bird.display();
-      this.water.display();
-      this.nest.display();
+      this.treeGrid.display();
+      this.treeGrid2.display();
+      this.treeGrid3.display();
+      this.pushMatrix()
+      this.rotate(Math.PI/4,0,1,0)
+      this.treeRow.display();
+      this.popMatrix()
+      //this.bird.display();
+      //this.water.display();
+      //this.nest.display();
       for(var i = 0; i < this.eggs.length; i++) {
         this.eggs[i].display();
       }

@@ -37,8 +37,9 @@ export class MyBillBoard extends CGFobject {
         this.scene.pushMatrix();
         this.mat.setTexture(this.texture);
         this.mat.apply();
+        this.scene.translate(this.coords[0],this.coords[1],this.coords[2]);
         this.scene.scale(1,this.scale,1);
-        this.scene.translate(this.coords[0],this.coords[1] + 0.5,this.coords[2]);
+        this.scene.translate(0,0.5,0);
         this.billBoardPosition();
         this.scene.rotate(-Math.PI,0,1,0);
         this.scene.rotate(-Math.PI/2,1,0,0);
