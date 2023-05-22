@@ -83,7 +83,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this,50,50,1,true,true);
 
     
-    this.objects = [this.terrain, this.tree, this.sphere, this.panorama, this.birdEgg, this.nest, this.brid, this.tree, this.treeRowEx, this.treeGridEx];
+    this.objects = [this.terrain, this.tree, this.sphere, this.panorama, this.birdEgg, this.nest, this.bird, this.tree, this.treeRowEx, this.treeGridEx];
     this.objectIDs = {'Terrain': 0, 'Scene': 1, 'Earth': 2, 'Panorama': 3, 'Egg': 4, 'Nest/Eggs': 5, 'Bird' : 6, 'Tree': 7, 'TreeRow': 8, 'TreeGroup': 9};
 
 
