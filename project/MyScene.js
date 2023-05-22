@@ -68,6 +68,7 @@ export class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this);
     this.panorama = new MyPanorama(this, this.sky);
     this.bird = new MyBird(this,Math.PI, 0, [0,4,0]);
+    this.birdEgg = new MyBirdEgg(this, [0,0,0],false);
     this.eggs = [new MyBirdEgg(this, [82,-61.2,-21],false), new MyBirdEgg(this, [-39,-61.2,29],false),new MyBirdEgg(this,[-70,-61.2,-10],false),new MyBirdEgg(this, [0,-61.2,-100],false)]
     this.tree = new MyBillBoard(this,this.tree1,[0,0,0],1,0);
     this.treeRow = new MyTreeRowPatch(this,[this.tree1,this.tree2,this.tree3],[-6,-4.5,-2.5],3);
@@ -81,10 +82,8 @@ export class MyScene extends CGFscene {
     this.water = new MyWater(this, -69);
     this.sphere = new MySphere(this,50,50,1,true,true);
 
-
-
-    this.objects = [this.tree,this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.tree, this.treeRowEx, this.treeGridEx];
-    this.objectIDs = {'Scene': 0, 'Earth': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4, 'Nest/Eggs': 5, 'Tree': 6, 'TreeRow': 7, 'TreeGroup': 8};
+    this.objects = [this.tree, this.sphere, this.panorama, this.bird, this.birdEgg, this.nest, this.terrain, this.tree, this.treeRowEx, this.treeGridEx];
+    this.objectIDs = {'Scene': 0, 'Earth': 1, 'Panorama': 2, 'Bird': 3, 'Egg': 4, 'Nest/Eggs': 5, 'Terrain' : 6, 'Tree': 7, 'TreeRow': 8, 'TreeGroup': 9};
 
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
@@ -105,7 +104,6 @@ export class MyScene extends CGFscene {
 
 
   updateObjectComplexity(){
-    this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
   }
 
 
@@ -149,12 +147,12 @@ export class MyScene extends CGFscene {
     }
 
     if(this.gui.isKeyPressed("KeyA")) {
-      this.bird.turn(-Math.PI / 12);
+      this.bird.turn(-Math.PI / 16);
       keysPressed = true;
     }
 
     if(this.gui.isKeyPressed("KeyD")) {
-      this.bird.turn(Math.PI / 12);
+      this.bird.turn(Math.PI / 16);
       keysPressed = true;
     }
 

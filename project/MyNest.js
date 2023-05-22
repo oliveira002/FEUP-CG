@@ -182,6 +182,8 @@ export class MyNest extends CGFobject {
         this.scene.popMatrix();
     }
 
+    
+
     updateBuffers(complexity){
         this.slices = 2 + Math.round(100 * complexity);
         this.initBuffers();

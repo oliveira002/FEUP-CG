@@ -18,10 +18,9 @@ export class MyBirdEgg extends CGFobject {
     }
 
     initBuffers() {
-        this.egg = new MySphere(this.scene,10,10,0.1,true,false);
+        this.egg = new MySphere(this.scene,20,20,0.1,true,false);
         this.mat = new CGFappearance(this.scene);
         this.testShader = new CGFshader(this.scene.gl,"shaders/egg.vert", "shaders/egg.frag");
-
     }
     
     display() {

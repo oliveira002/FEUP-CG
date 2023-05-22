@@ -53,17 +53,13 @@ export class MyTreeGroupPatch extends CGFobject {
 
     enableNormalViz() {
         for(var i = 0; i < 9; i++) {
-            this.scene.pushMatrix();
             this.trees[i].enableNormalViz();
-            this.scene.popMatrix();
         }
     }
 
     disableNormalViz() {
         for(var i = 0; i < 9; i++) {
-            this.scene.pushMatrix();
             this.trees[i].disableNormalViz();
-            this.scene.popMatrix();
         }
     }
 

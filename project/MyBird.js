@@ -1,9 +1,7 @@
 import {CGFappearance, CGFobject} from '../lib/CGF.js';
 import { MyQuad } from './MyQuad.js';
-import { MyCylinder } from './MyCylinder.js';
 import {MyPyramid} from './MyPyramid.js'
 import {MyWing} from './MyWing.js';
-import {MyPrism} from './MyPrism.js';
 import { MyTriangleBig } from './MyTriangleBig.js';
 import { MySphere } from './MySphere.js';
 import { MyBirdPaw } from './MyBirdPaw.js';
@@ -61,7 +59,7 @@ export class MyBird extends CGFobject {
     }
 
     turn(v) {
-        this.ang -= v * this.scene.speedFactor;
+        this.ang -= v * 0.8 * this.scene.speedFactor;
     }
 
     accelerate(v) {
@@ -313,14 +311,14 @@ export class MyBird extends CGFobject {
 
     enableNormalViz() {
         this.wing.enableNormalViz();
-        //this.head.enableNormalViz();
+        this.head.enableNormalViz();
         this.back.enableNormalViz();
         this.tail.enableNormalViz();
-        //this.eye.enableNormalViz();
+        this.eye.enableNormalViz();
     }
     disableNormalViz() {
         this.wing.disableNormalViz();
-        //this.head.disableNormalViz();
+        this.head.disableNormalViz();
         this.back.disableNormalViz();
         this.tail.disableNormalViz();
         this.eye.disableNormalViz();
