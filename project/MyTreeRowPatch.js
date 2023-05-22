@@ -2,11 +2,12 @@ import {CGFappearance, CGFobject, CGFshader, CGFtexture} from '../lib/CGF.js';
 import { MyBillBoard } from './MyBillBoard.js';
 
 export class MyTreeRowPatch extends CGFobject {
-    constructor(scene,textures,coords) {    
+    constructor(scene,textures,coords, nTrees) {    
         super(scene);
         this.textures = textures;
         this.trees = [];
         this.coords = coords;
+        this.nTrees = nTrees;
         this.initBuffers();
     }
 
@@ -18,13 +19,12 @@ export class MyTreeRowPatch extends CGFobject {
     createRow() {
         var firstTree = this.randomInteger(0,2);
         this.trees[0] = new MyBillBoard(this.scene,this.textures[firstTree],[...this.coords],1,Math.PI/4);
-        for(var i = 1; i < 6; i++) {
+        for(var i = 1; i < this.nTrees; i++) {
           var textureIdx = this.randomInteger(0,2);
-          var xOffset = this.randomFloat(0.5,2.6);
-          var zOffset = this.randomFloat(-0.4,0.4);
+          var xOffset = this.randomFloat(0.5,2.67);
+          var zOffset = this.randomFloat(-0.56,0.56);
           this.coords[0] += xOffset;
           this.coords[2] += zOffset;
-          console.log(this.coords)
           this.trees[i] = new MyBillBoard(this.scene,this.textures[textureIdx],[...this.coords],1,Math.PI/4); 
         }
       }
