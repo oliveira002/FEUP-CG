@@ -205,7 +205,6 @@ export class MyScene extends CGFscene {
         this.treeGrids[i].display();
       }
       this.treeRow.display();
-      this.popMatrix()
       //this.bird.display();
       //this.water.display();
       //this.nest.display();

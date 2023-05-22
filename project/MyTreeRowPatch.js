@@ -18,20 +18,20 @@ export class MyTreeRowPatch extends CGFobject {
 
     createRow() {
         var firstTree = this.randomInteger(0,2);
-        this.trees[0] = new MyBillBoard(this.scene,this.textures[firstTree],[...this.coords],1,Math.PI/4);
+        this.trees[0] = new MyBillBoard(this.scene,this.textures[firstTree],[...this.coords],1);
         for(var i = 1; i < this.nTrees; i++) {
           var textureIdx = this.randomInteger(0,2);
-          var xOffset = this.randomFloat(0.5,2.67);
-          var zOffset = this.randomFloat(-0.56,0.56);
+          var xOffset = this.randomFloat(0.5,2.5);
+          var zOffset = this.randomFloat(-0.52,0.52);
           this.coords[0] += xOffset;
           this.coords[2] += zOffset;
-          this.trees[i] = new MyBillBoard(this.scene,this.textures[textureIdx],[...this.coords],1,Math.PI/4); 
+          this.trees[i] = new MyBillBoard(this.scene,this.textures[textureIdx],[...this.coords],1); 
         }
       }
       
     
     display() {
-        for(var i = 0; i < 6; i++) {
+        for(var i = 0; i < this.nTrees; i++) {
             this.scene.pushMatrix();
             this.scene.scale(14,14,14)
             this.trees[i].display();
@@ -40,7 +40,7 @@ export class MyTreeRowPatch extends CGFobject {
     }
 
     enableNormalViz() {
-        for(var i = 0; i < 6; i++) {
+        for(var i = 0; i < this.nTrees; i++) {
             this.scene.pushMatrix();
             this.trees[i].enableNormalViz();
             this.scene.popMatrix();
@@ -48,7 +48,7 @@ export class MyTreeRowPatch extends CGFobject {
     }
 
     disableNormalViz() {
-        for(var i = 0; i < 6; i++) {
+        for(var i = 0; i < this.nTrees; i++) {
             this.scene.pushMatrix();
             this.trees[i].disableNormalViz();
             this.scene.popMatrix();
