@@ -35,7 +35,7 @@ export class MyWing extends CGFobject {
             this.moving = true;
         }
         
-        var offset = (this.maxAngle) / (60/(this.speed == 0 ? 4 : this.speed * 12))
+        var offset = (this.maxAngle) / (60/(this.speed == 0 ? 4 : this.speed * 4))
     
         if(t % 1000 <= 500) {
             this.currAngle -= offset

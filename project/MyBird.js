@@ -34,11 +34,11 @@ export class MyBird extends CGFobject {
     }
 
     initBuffers() {
-        this.head = new MySphere(this.scene,50,50,0.1,true,false);
+        this.head = new MySphere(this.scene,20,7,0.1,true,false);
         this.wing = new MyWing(this.scene,Math.PI/(5),this.velo);
-        this.back = new MyPyramid(this.scene,6,10,2);
-        this.tail = new MyPyramid(this.scene,6,10,2);
-        this.eye = new MySphere(this.scene,50,50,0.1,true);
+        this.back = new MyPyramid(this.scene,6,3);
+        this.tail = new MyPyramid(this.scene,6,5);
+        this.eye = new MySphere(this.scene,20,20,0.1,true);
         this.paw = new MyBirdPaw(this.scene);
         this.mat = new CGFappearance(this.scene);
 
@@ -63,7 +63,7 @@ export class MyBird extends CGFobject {
     }
 
     accelerate(v) {
-        this.velo += v * 0.2 * this.scene.speedFactor; 
+        this.velo += v * 0.1 * this.scene.speedFactor; 
         if(this.velo <= 0) {
             this.velo = 0;
         }
@@ -71,7 +71,6 @@ export class MyBird extends CGFobject {
 
     update(t) {
         var refreshRate = 60;
-        var rate = 1000/60.0;
         var offset = (this.amplitude) / (refreshRate)
   
 
@@ -85,13 +84,13 @@ export class MyBird extends CGFobject {
                 this.getAttachedEgg();
             }
             var timeElapsed = (t - this.startTime) / 1000.0;
-            var targetY = -33; 
+            var targetY = -26; 
         
             if (timeElapsed < 1.0) {
-                var eggOffset = Math.abs(this.initialY - targetY) / 15;
+                var eggOffset = Math.abs(this.initialY - targetY) / 10;
                 this.coords[1] -= eggOffset;
             } else if (timeElapsed >= 1.0 && timeElapsed <= 2.0) {
-                var eggOffset = Math.abs(this.initialY - targetY) / 15;
+                var eggOffset = Math.abs(this.initialY - targetY) / 10;
                 this.coords[1] += eggOffset;
             } else {
                 this.coords[1] = this.initialY;

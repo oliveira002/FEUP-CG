@@ -76,7 +76,7 @@ export class MyScene extends CGFscene {
     this.treeGrid = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[3.5,-4.8,2]);
     this.treeGrid2 = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[5.5,-4.8,-2.3]);
     this.treeGrid3 = new MyTreeGroupPatch(this,[this.tree1,this.tree2,this.tree3],[-4,-4.8,2.5]);
-    this.nest = new MyNest(this,100,100,true,this.nestTexture,[85,-61.2,-50]);
+    this.nest = new MyNest(this,30,6,true,this.nestTexture,[85,-61.2,-50]);
     this.treeGrids = [this.treeGrid,this.treeGrid2,this.treeGrid3]
     this.water = new MyWater(this, -69);
     this.sphere = new MySphere(this,50,50,1,true,true);
@@ -97,9 +97,11 @@ export class MyScene extends CGFscene {
     this.checkKeys();
     this.bird.update(t);
     for(let i = 0; i < this.eggs.length; i++){
-      this.eggs[i].update(t,i);
+      if(this.eggs[i].dropEgg)
+        this.eggs[i].update(t,i);
     }
-    this.water.update(t);
+    if (t % 2 == 0)
+      this.water.update(t);
   }
 
 
