@@ -2,7 +2,7 @@
 
 ## Course Grades
 
-| | Project 1 | 
+| | Project | 
 | --- | --- |
 | Grade | **18.60** |
 
